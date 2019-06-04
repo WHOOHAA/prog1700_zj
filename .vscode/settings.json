@@ -1,6 +1,7 @@
 {
     "workbench.colorTheme": "PowerShell ISE",
-    "files.autoSave": "onFocusChange",
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 5000,
     "editor.fontFamily": "Consolas, 'Courier New', monospace",
     "editor.fontSize": 15,
     "editor.codeLens": false,
