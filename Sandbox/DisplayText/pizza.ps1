@@ -6,7 +6,8 @@
 function main {
 
     #Input amd variables
-    $slicesPerSecond = 350 # hard-coded variable
+    # $slicesPerSecond = 350 # hard-coded variable
+    $slicesPerSecond = [int] (Read-Host -Prompt "Enter the number of slices per second")
 
     #Processing
     $slicesPerDay = $slicesPerSecond * 60 * 60 * 24
@@ -17,4 +18,4 @@ function main {
 }
 
 # DO NOT EDIT: Trigger our main function to launch the program
-# main
+main

@@ -6,13 +6,15 @@
 function main {
 
     #Input amd variables
-    
+    $balance = 100
 
     #Processing
-    
+    $balance = $balance * 1.05 + 100
+    $balance = $balance * 1.05 + 100
+    $balance = $balance * 1.05
 
     #Output
-        
+    Write-Output ("The balance is {0:C}" -f $balance )
 	
 }
 
