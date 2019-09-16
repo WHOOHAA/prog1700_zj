@@ -5,14 +5,14 @@
 # DO NOT EDIT: The main function to house our program code 
 function main {
 
-    #Input amd variables
+    # 1. Input amd variables
     
-
-    #Processing
     
-
-    #Output
-        
+    # 2. Processing
+    
+    
+    # 3. Output
+    
 	
 }
 
