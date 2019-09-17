@@ -5,7 +5,7 @@
 # DO NOT EDIT: The main function to house our program code 
 function main {
 
-    # 1. Input and variables
+    # 1. Input, variables and program title output
     
     
     # 2. Processing
