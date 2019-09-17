@@ -10,6 +10,7 @@ function main {
     Set-Variable TAX -Option Constant -Value 0.15
     Set-Variable TIP -Option Constant -Value 0.20
 
+    #$bill = 85
     #$tax = 0.15 # hard-coded variable
     #$tip = 0.20 # hard-coded variable
 
