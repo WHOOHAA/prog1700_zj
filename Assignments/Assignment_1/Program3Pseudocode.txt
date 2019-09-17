@@ -1,7 +1,15 @@
 1. Program start.
-2. Prompt for the team name and store it in a variable called teamName.
-3. Prompt for the number of games won and store in a variable called gamesWon.
-4. Prompt for the number of games played and store it in a variable called totalGames.
-5. Calculate the winningPercentage by dividing the gamesWon by totalGames and multiply the results by 100.
-6. Output the winningPercentage to the user
-7. Program end.
+2. Output "Hipster's Local Vinyl Records - Customer Order Details" followed by a dropped a line to the user.
+3. Prompt for the customer's name and store it in a variable called customer.
+4. Prompt for the number of kilometers distance and store in a variable called distance.
+5. Prompt for the cost of any records purchased and store it in a variable called purchase.
+6. Set constant KILOMETERPRICE to 15
+7. Set constant TAX to 0.14
+8. Calculate the deliveryCost by muliplying distance by KILOMETERPRICE.
+9. Calculate the purchasedTaxed by muliplying purchase by TAX.
+10. Calculate the totalCost by adding deliveryCost by purchasedTaxed.
+11. Output "Purchase summary for" variable customer, drop line, 
+    "Delivery Cost:" variable deliveryCost, drop line, 
+    "Purchase Cost:" variable purchasedTaxed, drop line, 
+    "Total Cost:" variable totalCost, to the user.
+12. Program end.
