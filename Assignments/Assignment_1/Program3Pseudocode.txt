@@ -1,15 +1,12 @@
 1. Program start.
-2. Output "Hipster's Local Vinyl Records - Customer Order Details" followed by a dropped a line to the user.
-3. Prompt for the customer's name and store it in a variable called customer.
-4. Prompt for the number of kilometers distance and store in a variable called distance.
-5. Prompt for the cost of any records purchased and store it in a variable called purchase.
-6. Set constant KILOMETERPRICE to 15
-7. Set constant TAX to 0.14
-8. Calculate the deliveryCost by muliplying distance by KILOMETERPRICE.
-9. Calculate the purchasedTaxed by muliplying purchase by TAX.
-10. Calculate the totalCost by adding deliveryCost by purchasedTaxed.
-11. Output "Purchase summary for" variable customer, drop line, 
-    "Delivery Cost:" variable deliveryCost, drop line, 
-    "Purchase Cost:" variable purchasedTaxed, drop line, 
-    "Total Cost:" variable totalCost, to the user.
-12. Program end.
+2. Output "Imperial To Metric Conversion" followed by a dropped a line to the user.
+3. Prompt for the number of tons and store it in a variable called tons.
+4. Prompt for the number of number of stone and store in a variable called stone.
+5. Prompt for the cost of number of pounds and store it in a variable called pounds.
+6. Prompt for the cost of ounces and store it in a variable called ounces.
+9. Calculate the totalOunces = 35840 * tons + 224 * stone + 16 * pounds + ounces.
+10. Calculate the totalKilos = totalOunces / 35.274.
+11. Calculate the totalgrams = totalOunces / 28.35.
+12. Calculate the metricTons = rounding down kilos / 1000.
+13. Output "drop line, The metric weight is metricTons metric tons, totalKilos kilos, and totalGrams grams" to the user.
+14. Program end.
