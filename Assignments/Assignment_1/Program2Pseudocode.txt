@@ -4,7 +4,7 @@
 4. Prompt for the interest rate and store in a variable called interestRate.
 5. Prompt for the number of years and store it in a variable called numberYears.
 8. Calculate the i with i= r / 5200 , r = intrestRate in the formula .
-9. Calculate the weeklyPayments with (i / ((1 - i)^-52n)) * A
+9. Calculate the weeklyPayments with (i / ((1 - (1 + i)^-52n))) * A
     n = variable years, A = loanAmount.
 11. Output "Your weekly payment will be:" variable weeklyPayments to the user.
 12. Program end.

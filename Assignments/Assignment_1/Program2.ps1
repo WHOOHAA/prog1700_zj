@@ -13,7 +13,7 @@ function main {
 
     # 2. Processing
     $i = $interestRate / 5200
-    $weeklyPayments = ($i / (1 - [math]::pow((1 + $i),-52))) * $numberYears
+    $weeklyPayments = ($i / (1 - [math]::pow((1 + $i),-52 * $numberYears))) * $loanAmount
     
     # 3. Output
     Write-Output ("`nYour weekly payment will be: {0:C}"-f $weeklyPayments)
