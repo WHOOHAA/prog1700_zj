@@ -1,15 +1,10 @@
 1. Program start.
-2. Output "Hipster's Local Vinyl Records - Customer Order Details" followed by a dropped a line to the user.
-3. Prompt for the customer's name and store it in a variable called customer.
-4. Prompt for the number of kilometers distance and store in a variable called distance.
-5. Prompt for the cost of any records purchased and store it in a variable called purchase.
-6. Set constant KILOMETERPRICE to 15
-7. Set constant TAX to 0.14
-8. Calculate the deliveryCost by muliplying distance by KILOMETERPRICE.
-9. Calculate the purchasedTaxed by muliplying purchase by TAX.
-10. Calculate the totalCost by adding deliveryCost by purchasedTaxed.
-11. Output "Purchase summary for" variable customer, drop line, 
-    "Delivery Cost:" variable deliveryCost, drop line, 
-    "Purchase Cost:" variable purchasedTaxed, drop line, 
-    "Total Cost:" variable totalCost, to the user.
+2. Output "Weekly Loan Calculator" followed by a dropped a line to the user.
+3. Prompt for the amount of the loan and store it in a variable called loanAmount.
+4. Prompt for the interest rate and store in a variable called interestRate.
+5. Prompt for the number of years and store it in a variable called numberYears.
+8. Calculate the i with i= r / 5200 , r = intrestRate in the formula .
+9. Calculate the weeklyPayments with (i / ((1 - i)^-52n)) * A
+    n = variable years, A = loanAmount.
+11. Output "Your weekly payment will be:" variable weeklyPayments to the user.
 12. Program end.
