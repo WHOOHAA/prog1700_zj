@@ -1,0 +1,7 @@
+1. Program start.
+2. Set the kilowattHourCost to 11.76 cents.
+3. Prompt for the device wattage used and store it in a variable called diviceWattage.
+4. Prompt for the hours used and store in a variable called hoursUsed.
+9. Calculate the electricityCost = (diviceWattage * hoursUsed) / (1000 * killowattHourCost)
+11. Output "Your your cost of electricity:" variable electricityCost to the user.
+12. Program end.
