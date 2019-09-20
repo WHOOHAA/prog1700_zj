@@ -5,7 +5,7 @@
 # DO NOT EDIT: The main function to house our program code 
 function main {
 
-    # 1. Input, variables and program title output
+    # 1. Input, variables and title output
     Write-Output "Weekly Loan Calculator `n"
     $loanAmount = [float](Read-Host -Prompt "Enter the amount of loan")
     $interestRate = [float](Read-Host -Prompt "Enter the interest rate (%)")

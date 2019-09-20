@@ -1,12 +1,13 @@
 1. Program start.
-2. Output "Imperial To Metric Conversion" followed by a dropped a line to the user.
+2. Output "Imperial To Metric Conversion" followed by a dropped a line, to the user.
 3. Prompt for the number of tons and store it in a variable called tons.
 4. Prompt for the number of number of stone and store in a variable called stone.
 5. Prompt for the cost of number of pounds and store it in a variable called pounds.
 6. Prompt for the cost of ounces and store it in a variable called ounces.
-9. Calculate the totalOunces = 35840 * tons + 224 * stone + 16 * pounds + ounces.
-10. Calculate the totalKilos = totalOunces / 35.274.
-11. Calculate the totalgrams = totalOunces / 28.35.
-12. Calculate the metricTons = rounding down kilos / 1000.
-13. Output "drop line, The metric weight is metricTons metric tons, totalKilos kilos, and totalGrams grams" to the user.
-14. Program end.
+9. Calculate totalOunces = 35840 * tons + 224 * stone + 16 * pounds + ounces.
+10. Calculate totalKilos = totalOunces / 35.274.
+11. Calculate metricTons = rounding down totalKilos / 1000. 
+12. Calculate kilo = round down totalKilos - metricTons * 1000
+13. Calculate the totalGrams = 1000 * ((totalKilos - (metricTons * 1000)) - kilo)
+14. Output "drop line, The metric weight is metricTons metric tons, kilos kilos, and totalGrams grams" to the user.
+15. Program end.

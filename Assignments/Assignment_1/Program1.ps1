@@ -5,7 +5,7 @@
 # DO NOT EDIT: The main function to house our program code 
 function main {
 
-    # 1. Input, variables and program title output
+    # 1. Input, variables and title output
     Write-Output "Hipster's Local Vinyl Records - Customer Order Details `n"
     $customer = Read-Host -Prompt "Enter customer's name"
     $distance = [float](Read-Host -Prompt "Enter the distance in kilometers for delivery")

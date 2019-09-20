@@ -1,5 +1,5 @@
 1. Program start.
-2. Output "Weekly Loan Calculator" followed by a dropped a line to the user.
+2. Output "Weekly Loan Calculator" followed by a dropped a line, to the user.
 3. Prompt for the amount of the loan and store it in a variable called loanAmount.
 4. Prompt for the interest rate and store in a variable called interestRate.
 5. Prompt for the number of years and store it in a variable called numberYears.

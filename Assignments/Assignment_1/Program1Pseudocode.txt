@@ -1,5 +1,5 @@
 1. Program start.
-2. Output "Hipster's Local Vinyl Records - Customer Order Details" followed by a dropped a line to the user.
+2. Output "Hipster's Local Vinyl Records - Customer Order Details" followed by a dropped a line, to the user.
 3. Prompt for the customer's name and store it in a variable called customer.
 4. Prompt for the number of kilometers distance and store in a variable called distance.
 5. Prompt for the cost of any records purchased and store it in a variable called purchase.
