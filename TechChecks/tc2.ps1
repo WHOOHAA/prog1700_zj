@@ -14,7 +14,6 @@ function main {
     Set-Variable PROVINCIALTAX -Option Constant -Value 0.06
     Set-Variable FEDERALTAX -Option Constant -Value 0.25
     Set-Variable DEPENDENTDEDUCTION -Option Constant -Value 0.02
-
     
     # 2. Processing
     $provincialTaxHeld = $weeklySalary * $PROVINCIALTAX
