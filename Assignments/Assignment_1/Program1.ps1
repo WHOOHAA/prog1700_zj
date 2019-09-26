@@ -1,6 +1,8 @@
-#Author: Zachary Johnson
-#Date: Sep. 17, 2019
-#Description: Assignment 1 Project 1 Hipster's Local Vinyl Records
+########################################################################
+#  Author: Zachary Johnson                                             # 
+#  Date: Sep. 17, 2019                                                 #
+#  Description: Assignment 1 Project 1 Hipster's Local Vinyl Records   #
+########################################################################
 
 # DO NOT EDIT: The main function to house our program code 
 function main {

@@ -1,6 +1,8 @@
-#Author: Zachary Johnson
-#Date: Sep. 20, 2019
-#Description: #Description: Assignment 1 Project 3 Imperial to Metric Conversion
+#######################################################################
+#  Author: Zachary Johnson                                            #
+#  Date: Sep. 20, 2019                                                #
+#  Description: Assignment 1 Project 3 Imperial to Metric Conversion  #
+#######################################################################
 
 # DO NOT EDIT: The main function to house our program code 
 function main {
@@ -16,7 +18,7 @@ function main {
    $totalOunces = (35840 * $tons) + (224 * $stone) + (16 * $pounds) + $ounces
    $totalKilos = $totalOunces / 35.274
    $metricTons = [math]::Floor($totalKilos / 1000)
-   $kilo = [math]::Floor($totalKilos) - ($metricTons * 1000)
+   $kilo = [math]::Floor($totalKilos - ($metricTons * 1000))
    $totalGrams = 1000 * (($totalKilos - ($metricTons * 1000)) - $kilo)
 
    # 3. Output

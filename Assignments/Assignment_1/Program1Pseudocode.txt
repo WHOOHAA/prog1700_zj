@@ -3,8 +3,8 @@
 3. Prompt for the customer's name and store it in a variable called customer.
 4. Prompt for the number of kilometers distance and store in a variable called distance.
 5. Prompt for the cost of any records purchased and store it in a variable called purchase.
-6. Set constant KILOMETERPRICE to 15
-7. Set constant TAX to 0.14
+6. Set constant to KILOMETERPRICE to 15
+7. Set constant to TAX to 0.14
 8. Calculate the deliveryCost by muliplying distance by KILOMETERPRICE.
 9. Calculate the purchasedTaxed by muliplying purchase by TAX.
 10. Calculate the totalCost by adding deliveryCost by purchasedTaxed.

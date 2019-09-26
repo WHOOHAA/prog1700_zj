@@ -6,8 +6,8 @@
 6. Prompt for the cost of ounces and store it in a variable called ounces.
 9. Calculate totalOunces = 35840 * tons + 224 * stone + 16 * pounds + ounces.
 10. Calculate totalKilos = totalOunces / 35.274.
-11. Calculate metricTons = rounding down totalKilos / 1000. 
-12. Calculate kilo = round down totalKilos - metricTons * 1000
+11. Calculate metricTons = round down (totalKilos / 1000) 
+12. Calculate kilo = round down (totalKilos - metricTons * 1000)
 13. Calculate the totalGrams = 1000 * ((totalKilos - (metricTons * 1000)) - kilo)
-14. Output "drop line, The metric weight is metricTons metric tons, kilos kilos, and totalGrams grams" to the user.
+14. Output "drop line, The metric weight is metricTons metric tons, kilo kilos, and totalGrams grams" to the user.
 15. Program end.
