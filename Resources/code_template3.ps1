@@ -1,19 +1,40 @@
 ##################################
 #    Author: Zachary Johnson     #
-#    Date: Sep. 30, 2019         #
-#    Description:    #
+#    Date: Sep. 24, 2019         #
+#    Description: Tech Check 2   #
 ##################################
+
+<#
+Pseudocode
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+10.
+#> 
+
 
 # DO NOT EDIT: The main function to house our program code 
 function main {
 
-    # 1. Input and variables
+    # Input and variables
+    
+
+    # initialize variables
     
     
-    # 2. Processing
+    # constant
+
+    
+    # Processing
     
     
-    # 3. Output
+    # Output
     
 	
 }
