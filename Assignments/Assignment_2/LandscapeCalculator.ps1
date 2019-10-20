@@ -14,12 +14,6 @@ function main {
     $grassType = Read-Host -Prompt "Enter type of grass (fescue, bentgrass, campus)"
     $treeNumber = [int](Read-Host -Prompt "Enter the number of trees")
 
-    # Initialize Variables
-    
-    
-    # Constant
-
-    
     # Processing
     $propertySize = $propertyDepth * $propertyWidth
 
@@ -49,9 +43,6 @@ function main {
     $totalCost = "ERROR"
     }
     
-
-
-
     if($totalCost -ne "ERROR")
     {
         $totalCost = ($propertySize * $grassCost) + ($treeNumber * 100) + 1000 + $overSizeCharge
