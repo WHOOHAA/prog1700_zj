@@ -4,7 +4,7 @@
 #    Description: Erewhon Mobile Data Plans Assignment 2 - Project 2   #
 ########################################################################
 
-#Collects $usedData and calculates/returns the total charge
+#Collects $usedData and calculates/returns total charge
 Function Data-Price($InUsedData)
 {
   $OutTotalCharge = "ERROR"
