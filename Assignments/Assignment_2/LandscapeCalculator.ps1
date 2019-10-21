@@ -4,6 +4,7 @@
 #    Description: Landscape Calculator Assignment 2 - Project 1   #
 ###################################################################
 
+#Collecting $propertyDepth, $propertyWidth, $grassType, $treeNumber and calculating/returning total cost
 function Landscape-Calculator ($InPropertyDepth, $InPropertyWidth, $InGrassType, $InTreeNumber)
 {
     # Processing
@@ -41,15 +42,16 @@ function Landscape-Calculator ($InPropertyDepth, $InPropertyWidth, $InGrassType,
     }
     Return $OutTotalCost
 }
+
 # DO NOT EDIT: The main function to house our program code 
 function main {
 
     # Input/Output and Variables
     $houseNumber = [int](Read-Host -Prompt "Enter House Number")
-    $propertyDepth = [int](Read-Host -Prompt "Enter property depth (feet)")
-    $propertyWidth = [int](Read-Host -Prompt "Enter property width (feet)")
-    $grassType = Read-Host -Prompt "Enter type of grass (fescue, bentgrass, campus)"
-    $treeNumber = [int](Read-Host -Prompt "Enter the number of trees")
+    $propertyDepth = [int](Read-Host -Prompt "`nEnter property depth (feet)")
+    $propertyWidth = [int](Read-Host -Prompt "`nEnter property width (feet)")
+    $grassType = Read-Host -Prompt "`nEnter type of grass (fescue, bentgrass, campus)"
+    $treeNumber = [int](Read-Host -Prompt "`nEnter the number of trees")
 
     # Processing
     $totalCost = Landscape-Calculator -InPropertyDepth $propertyDepth -InPropertyWidth $propertyWidth -InGrassType $grassType -InTreeNumber $treeNumber

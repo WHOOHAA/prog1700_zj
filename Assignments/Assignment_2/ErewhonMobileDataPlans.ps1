@@ -4,12 +4,11 @@
 #    Description: Erewhon Mobile Data Plans Assignment 2 - Project 2   #
 ########################################################################
 
+#Collects $usedData and calculates/returns the total charge
 Function Data-Price($InUsedData)
 {
-  # Initialize Variables
   $OutTotalCharge = "ERROR"
     
-  # Processing
   if($InUsedData -le 200 -and $InUsedData -ge 0 )
   {
       $OutTotalCharge = 20
@@ -36,6 +35,7 @@ function main {
     # Input/Output and Variables
     $usedData = [int](Read-Host -Prompt "Enter data usage (Mb)")
 
+    # Processing
     $totalCharge = Data-Price -InUsedData $usedData
   
     # Output
