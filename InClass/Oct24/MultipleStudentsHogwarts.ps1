@@ -98,9 +98,10 @@ function main {
         }
            
     }
+    
     # 3. Output
-        Write-Output "Thanks for using the Hogwarts Sorting Hat!`n"
-        Write-Output "There are: `n$gryffindor people in Gryddindor `n$hufflepuff people in Hufflepuff `n$ravenclaw people in Ravenclaw `n$slytherin people in Slytherin `n$muggle Muggles"
+    Write-Output "Thanks for using the Hogwarts Sorting Hat!`n"
+    Write-Output "There are: `n$gryffindor people in Gryddindor `n$hufflepuff people in Hufflepuff `n$ravenclaw people in Ravenclaw `n$slytherin people in Slytherin `n$muggle Muggles"
 }
 
 # DO NOT EDIT: Trigger our main function to launch the program
