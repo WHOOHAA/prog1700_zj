@@ -1,7 +1,7 @@
 ########################################################
 #    Author: Zachary Johnson                           #
 #    Date: 15 Oct 2019                                 #
-#    Description: Hogwarts Sorting Hat with Functioin  #
+#    Description: Hogwarts Sorting Hat 10 Inputs       #
 ########################################################
 
 function Assign-House($InLastName)
