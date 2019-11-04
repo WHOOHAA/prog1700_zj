@@ -86,7 +86,7 @@ function main {
     Write-Output "Days you have slacked off (i.e. worked less then 7 hours):"
     
     # GOES THROUGH THE ARRAY FOR THE DAY THAT CORRESPONDS WITH THE DAYS WHERE LESS THEN 7 HOURS ARE WORKED
-    # OUTPUTS MULTIPLE DAYS IF THEY SHARE THE SAME HOURS OR ARE LESS THEN 7 HOURS WORKED
+    # OUTPUTS LESS THEN 7 HOURS WORKED
     for($i = 0; $i -lt $hoursWorked.Length; $i++ )
     {
         if($hoursWorked[$i] -lt 7)
