@@ -42,15 +42,46 @@ function main {
         While($error -ne $false)
     }
 
-    # for($i = 0; $i = $hoursWorked.Length; $i++
-    # {
-        $sortedHours = $hoursWorked | Sort-Object -Descending
-        $mostHoursWorked = $sortedHours[0]
-        
-        # if()
-        # $hoursWorked[i]
-    # } 
-	Write-Output $hoursWorked $mostHoursWorked
+    $sortedHours = $hoursWorked | Sort-Object -Descending
+    $mostHoursWorked = $sortedHours[0]
+    
+    Write-Output ("=" * 40)
+    Write-Output "The most hours worked was:"
+    for($i = 0; $i -lt $hoursWorked.Length; $i++)
+    {
+            
+            if($hoursWorked[$i] -eq $mostHoursWorked)
+            {
+                $day = $i + 1
+                Write-Output ("Day #{0} when you worked {1} hours." -f $day,$hoursWorked[$i])
+            }   
+    } 
+
+    Write-Output ("=" * 40)
+    $totalHoursWorked = 0
+
+    for($i = 0; $i -lt $hoursWorked.Length; $i++ )
+    {
+        $totalHoursWorked = $totalHoursWorked + $hoursWorked[$i]  
+    }
+
+        $averageHoursWorked = $totalHoursWorked / $hoursWorked.Length
+
+    Write-Output ("Total number of hours worked: {0}" -f $totalHoursWorked)
+    Write-Output ("The average number of hours worked each day was: {0}" -f $averageHoursWorked)
+    Write-Output ("=" * 40)
+    
+    Write-Output "Days you have slacked off (i.e. worked less then 7 hours):"
+    
+    for($i = 0; $i -lt $hoursWorked.Length; $i++ )
+    {
+        if($hoursWorked[$i] -lt 7)
+        {
+            $day = $i + 1
+            Write-Output ("Day #{0}: {1} hours" -f $day,$hoursWorked[$i])
+        }
+    }
+	# Write-Output $hoursWorked $mostHoursWorked
 }
 
 # DO NOT EDIT: Trigger our main function to launch the program
