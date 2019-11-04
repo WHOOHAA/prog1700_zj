@@ -22,7 +22,7 @@ function Check-Input ($INUSERINPUT)
 # DO NOT EDIT: The main function to house our program code 
 function main {
     $hoursWorked = @()
-    
+    $sortedHours = @()
     for ($i = 1; $i -lt 6; $i++)
     {
         $error = $false
@@ -36,17 +36,17 @@ function main {
             }
             else
             {
-                $hoursWorked += $userInput
+                $hoursWorked += [int]($userInput)
             }
         }
         While($error -ne $false)
     }
-
+   
     $sortedHours = $hoursWorked | Sort-Object -Descending
     $mostHoursWorked = $sortedHours[0]
     
     Write-Output ("=" * 40)
-    Write-Output "The most hours worked was:"
+    Write-Output "The most hours worked was on:"
     for($i = 0; $i -lt $hoursWorked.Length; $i++)
     {
             
@@ -70,7 +70,6 @@ function main {
     Write-Output ("Total number of hours worked: {0}" -f $totalHoursWorked)
     Write-Output ("The average number of hours worked each day was: {0}" -f $averageHoursWorked)
     Write-Output ("=" * 40)
-    
     Write-Output "Days you have slacked off (i.e. worked less then 7 hours):"
     
     for($i = 0; $i -lt $hoursWorked.Length; $i++ )
