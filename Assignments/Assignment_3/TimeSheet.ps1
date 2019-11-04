@@ -18,6 +18,7 @@ function Check-Input ($INUSERINPUT)
     return $OUTERROR
 }
 
+
 # DO NOT EDIT: The main function to house our program code 
 function main {
     $hoursWorked = @()
@@ -28,7 +29,7 @@ function main {
         do
         {
             $userInput = Read-Host "Enter hours worked on Day #$i"
-            $error = Check-Input $INUSERINPUT $userInput
+            $error = Check-Input -INUSERINPUT $userInput
             if($error -eq $true)
             {
                 Write-Output "ERROR"
@@ -40,7 +41,16 @@ function main {
         }
         While($error -ne $false)
     }
-	Write-Output "$hoursWorked"
+
+    # for($i = 0; $i = $hoursWorked.Length; $i++
+    # {
+        $sortedHours = $hoursWorked | Sort-Object -Descending
+        $mostHoursWorked = $sortedHours[0]
+        
+        # if()
+        # $hoursWorked[i]
+    # } 
+	Write-Output $hoursWorked $mostHoursWorked
 }
 
 # DO NOT EDIT: Trigger our main function to launch the program

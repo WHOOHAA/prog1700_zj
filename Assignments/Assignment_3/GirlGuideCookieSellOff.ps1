@@ -10,19 +10,10 @@
 # DO NOT EDIT: The main function to house our program code 
 function main {
 
-    # Input/Output and Variables
-    
+$girlGuidesNumbers
 
-    # Initialize Variables
-    
-    
-    # Constant
-
-    
-    # Processing
-    
-    
-    # Output
+array of gilrguides name and number of bxes sold
+2 1-D Array
     
 	
 }

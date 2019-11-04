@@ -10,20 +10,25 @@
 # DO NOT EDIT: The main function to house our program code 
 function main {
 
-    # Input/Output and Variables
-    
+    # $testString = "The rain in spain falls mainly on the plain"
 
-    # Initialize Variables
-    
-    
-    # Constant
+    # #Write-Output ($testString -replace "a","-")
 
-    
-    # Processing
-    
-    
-    # Output
-    
+    # for($i = 0;$i -lt $testString.Length; $i++)
+    # {
+    #     if($testString[$i] -eq "a")
+    #     {
+    #         Write-Output "-"
+    #     }
+    #     else
+    #     {
+    #     Write-Output $testString[$i]
+    #     }
+    # }
+
+    $testString2 = "a,b,c,d"
+    $letterArray = $testString2 -split ","
+    Write-Output = $letterArray
 	
 }
 
