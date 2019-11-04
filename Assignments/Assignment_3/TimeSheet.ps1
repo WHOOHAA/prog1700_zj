@@ -81,7 +81,7 @@ function main {
             Write-Output ("Day #{0}: {1} hours" -f $day,$hoursWorked[$i])
         }
     }
-	# Write-Output $hoursWorked $mostHoursWorked
+	
 }
 
 # DO NOT EDIT: Trigger our main function to launch the program
