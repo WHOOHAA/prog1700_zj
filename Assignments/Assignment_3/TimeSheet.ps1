@@ -45,7 +45,7 @@ function main {
     $sortedHours = $hoursWorked | Sort-Object -Descending
     $mostHoursWorked = $sortedHours[0]
     
-    Write-Output ("=" * 40)
+    Write-Output ("-" * 80)
     Write-Output "The most hours worked was on:"
     for($i = 0; $i -lt $hoursWorked.Length; $i++)
     {
@@ -57,7 +57,7 @@ function main {
             }   
     } 
 
-    Write-Output ("=" * 40)
+    Write-Output ("-" * 80)
     $totalHoursWorked = 0
 
     for($i = 0; $i -lt $hoursWorked.Length; $i++ )
@@ -69,7 +69,7 @@ function main {
 
     Write-Output ("Total number of hours worked: {0}" -f $totalHoursWorked)
     Write-Output ("The average number of hours worked each day was: {0}" -f $averageHoursWorked)
-    Write-Output ("=" * 40)
+    Write-Output ("-" * 80)
     Write-Output "Days you have slacked off (i.e. worked less then 7 hours):"
     
     for($i = 0; $i -lt $hoursWorked.Length; $i++ )
