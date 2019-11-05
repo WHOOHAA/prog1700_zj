@@ -29,12 +29,13 @@ function main {
     
     # ASKES FOR HOURS WORKED AND REASKS IF $error is returned as $true
     # RESTORES $userInput AS AN INT IN $hoursWorked AS AN ARRAY
-    for ($i = 1; $i -lt 6; $i++)
+    for ($i = 0; $i -lt 5; $i++)
     {
         $error = $false
         do
         {
-            $userInput = Read-Host "Enter hours worked on Day #$i"
+            $day = $i + 1
+            $userInput = Read-Host ("Enter hours worked on Day #{0}" -f $day)
             $error = Check-InputError -INUSERINPUT $userInput
             if($error -eq $true)
             {
