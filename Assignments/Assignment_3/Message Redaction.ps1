@@ -5,86 +5,75 @@
 ################################################################
 
 
+# TAKES $INUSERINPUT from $userInput AND CHECKS FOR DIGITS. 
+# IF NON DIGIT IT WILL RETURN $ERROROUT AS $true
+# IF CONTAINS ONLY DIGITS IT WILL RETURN $ERROROUT AS $false
+function Check-InputError ($INUSERINPUT)
+{
+    $numberRegEx = "^\d+$"
+    $letterRegEx = "^\D+$"
+
+    
+    if($INUSERINPUT -Match $numberRegEx -or $INUSERINPUT -Match $letterRegEx)
+    {
+        $OUTERROR = $false
+    }
+    else 
+    {
+        $OUTERROR = $true
+    }
+    return $OUTERROR
+}
 
 
 # DO NOT EDIT: The main function to house our program code 
 function main {
-
-    
-
-    # $redactArray = @()
-    # $redactedArray = @()
-    $userPhrase = "Imagination is more important than knolege."
-    $userRedact = "a,i,k,j"
-    
-    $phraseArray = $userPhrase.ToCharArray()
-    $redactArray = $userRedact -split ","
-
-    # for($i = 0; $i -lt $redactArray.Length; $i++)
-    # {
-    #    $redactedPhrase = $userPhrase -replace $redactArray[$i], "_"
-    # }
-
-    # compare-object -referenceobject $userPhrase -differenceobject $redactedPhrase
-    
-    $redactedPhrase = ""
-    
-    
-    for($i = 0; $i -lt $phraseArray.Length; $i++)
+    while($userPhrase -ne "quit")
     {
-        # CHECK IF CURRENT LETTER IN LIST TO REMOVE
-        if($redactArray -Contains $phraseArray[$i])
-        {
-            $redactedPhrase += "_"
-            $count++
+        $redactedPhrase = ""
+        $numberRedacted = 0
+        do
+        {   
+            $userPhrase = Read-Host -Prompt "Type a phrase (or quit to exit program)"
+            $error = Check-InputError -INUSERINPUT $userPhrase
+            if($userPhrase -eq "quit")
+            {
+                Exit
+            }
         }
-        else 
-        {
-            $redactedPhrase += $phraseArray[$i]    
-        }
+        
+        while($error -ne $false)  
+        
+        
+            do
+            {      
+                $userRedact = Read-Host -Prompt "`nType a comma-separated list of letters to redact"
+                $error = Check-InputError -INUSERINPUT $userRedact                
+            } 
+            While($error -ne $false)     
+        
 
+            $phraseArray = $userPhrase.ToCharArray()
+            $redactArray = $userRedact -split ","
+            
 
-        # for($j = 0; $j -lt $redactArray.Length; $j++)
-        # {
-        #     if($phraseArray[$i] -eq  $redactArray[$j])
-        #     {
-        #         $redactedArray += $phraseArray[$i] -replace $redactArray[$j]
-        #     }
-        #     else
-        #     {
-        #         $redactedArray += $phraseArray[$i]
-        #     }
-        # }
-    }
-    
-    Write-Output $redactedPhrase
-	
+            for($i = 0; $i -lt $phraseArray.Length; $i++)
+            {
+                # CHECK IF CURRENT LETTER IN LIST TO REMOVE
+                if($redactArray -Contains $phraseArray[$i])
+                {
+                    $redactedPhrase += "_"
+                    $numberRedacted++
+                }
+                else 
+                {
+                    $redactedPhrase += $phraseArray[$i]    
+                }
+            }
+            Write-Output "Number of letters redacted: $numberRedacted"
+            Write-Output "$redactedPhrase `n"
+        } 
 }
 
 # DO NOT EDIT: Trigger our main function to launch the program
 main
-
-
-
-
-
-
-
-
-
-
-# $testString = "The rain in spain falls mainly on the plain"
-
-    # #Write-Output ($testString -replace "a","-")
-
-    # for($i = 0;$i -lt $testString.Length; $i++)
-    # {
-    #     if($testString[$i] -eq "a")
-    #     {
-    #         Write-Output "-"
-    #     }
-    #     else
-    #     {
-    #     Write-Output $testString[$i]
-    #     }
-    # }
