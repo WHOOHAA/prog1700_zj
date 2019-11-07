@@ -1,6 +1,6 @@
 #########################################################################
 #    Author: Zachary Johnson                                            #
-#    Date: Nov. 03, 2019                                                #
+#    Date: Nov. 07, 2019                                                #
 #    Description: Girl Guide Cookie Sell-off Assignment 3 - Project 3   #
 #########################################################################
 

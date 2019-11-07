@@ -1,6 +1,6 @@
 ################################################################
 #    Author: Zachary Johnson                                   #
-#    Date: Nov. 03, 2019                                       #
+#    Date: Nov. 06, 2019                                       #
 #    Description: Message Redaction Assignment 3 - Project 2   #
 ################################################################
 
