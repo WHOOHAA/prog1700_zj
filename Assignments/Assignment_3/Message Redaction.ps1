@@ -5,23 +5,20 @@
 ################################################################
 
 
-# TAKES $INUSERINPUT from $userInput AND CHECKS FOR DIGITS. 
+# TAKES $INUSERINPUT from $userInput or $ AND CHECKS FOR DIGITS. 
 # IF NON DIGIT IT WILL RETURN $ERROROUT AS $true
 # IF CONTAINS ONLY DIGITS IT WILL RETURN $ERROROUT AS $false
 function Check-InputError ($INUSERINPUT)
 {
     $numberRegEx = "^\d+$"
     $letterRegEx = "^\D+$"
-
+    $OUTERROR = $true
     
     if($INUSERINPUT -Match $numberRegEx -or $INUSERINPUT -Match $letterRegEx)
     {
         $OUTERROR = $false
     }
-    else 
-    {
-        $OUTERROR = $true
-    }
+    
     return $OUTERROR
 }
 
@@ -41,7 +38,6 @@ function main {
                 Exit
             }
         }
-        
         while($error -ne $false)  
         
         
@@ -71,7 +67,7 @@ function main {
                 }
             }
             Write-Output "Number of letters redacted: $numberRedacted"
-            Write-Output "$redactedPhrase `n"
+            Write-Output "Redacted phrase: $redactedPhrase `n"
         } 
 }
 
