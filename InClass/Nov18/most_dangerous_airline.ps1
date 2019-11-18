@@ -11,32 +11,45 @@
 function main {
 
     # FILE NAME TO READ
-    $inputFile = "airline-safety.csv"
+    $inputFile = "C:\windows\system32\airline-safety.csv"
 
-    #read in a csv file with headings
-    $csvData = Import-Csv $inputFile
+    # CATCHES ERRORS FOR DIRECTORY/FILE NOT EXISTING AND OTHER ERRORS 
+    try
+    {    
+        # READ IN A CSV FILE WITH HEADINGS
+        $csvData = Import-Csv $inputFile
+    }
+    catch [System.IO.DirectoryNotFoundException]
+    {
+        Write-Output "That directory does not exist"
+        EXIT
+    }
+    catch
+    {
+        Write-Output "Unspecified Error"
+        EXIT
+    }
 
+
+    # INITILIZATION OF $highestRatio
     $highestRatio = 0
 
-    Write-Output "Airline `t Total Fatalities 1985 to 2014 per (average km flown per week)"
+    # ADDS BOTH FATALITIS DATA TOGETHER AND DEVIDES IT BY THE   85_99 AND AVERAGE NUMBER OF LM TRAVELED PER AVAILABLE SEAT
     foreach($data in $csvData)
     {
-        $totalFatalitiesRatio = ([int]($data.fatalities_85_99) + [int]($data.fatalities_00_14)/$data.avail_seat_km_per_week)
-        Write-Output ("{0}`t{1}" -f $data.airline, $totalFatalities) 
+        [float]($totalFatalitiesRatio) = ([int]($data.fatalities_85_99) + [int]($data.fatalities_00_14)) / [float]($data.avail_seat_km_per_week)
 
+        # CHECKS THE HIGHEST RATIO WITH THE CURRENT ONE
+        # WHEN THE CIRRENT RATIO IS HIGHER IT SETS THE NEW HIGHEST RATIO AND THE AIRLINE IT IS CORISPONDING WITH AS VARIABLES FOR OUTPUT LATER 
         if($totalFatalitiesRatio -gt $highestRatio)
         {
-            $highestRatio = $totalFatalities
+            $highestRatio = $totalFatalitiesRatio
+            $airlineHighestRatio = $data.airline
         }
     }
-
-
-    foreach($data in $csvData)
-    {
-        if($data -eq $highestRatio)
-        Write-Output ("{0}`t{1}" -f $data.airline, $highestRatio) 
-    }
-    Write-Output $highestRatio
+    
+    # OUTPUTS THE HIGHEST RATIO AND THE AIRLINE IS CORISPONDS WITH
+    Write-Output ("{0} has {1} fatalities per km traveled." -f $airlineHighestRatio, $highestRatio)
 }
 
 # DO NOT EDIT: Trigger our main function to launch the program
