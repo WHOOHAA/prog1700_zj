@@ -1,8 +1,8 @@
-###################################################################
-#    Author: Zachary Johnson                                      #
-#    Date: Nov, 18, 2019                                          #
-#    Description: Landscape Calculator Assignment 2 - Project 1   #
-###################################################################
+############################################
+#    Author: Zachary Johnson               #
+#    Date: Nov, 18, 2019                   #
+#    Description: Most Dangerous Airline   #
+############################################
 
 
 
