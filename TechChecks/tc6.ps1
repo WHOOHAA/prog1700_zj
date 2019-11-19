@@ -66,7 +66,7 @@ function main {
         # DO ATLEAST ONCE UNTILL $hitPoints -eq 0
         do
         {
-            Write-Output ("=" * 100)
+            Write-Output ("=" * 90)
             # RUN THOUGH EACH ARRAY
             foreach($data in $csvData)
             {
@@ -79,11 +79,11 @@ function main {
                     {
                         $hitPoints = 0
                     }
-                    # SHOWING EACH ATTACK
-                    Write-Output("You were attacked by a {0} with a {1} for {2}. Current hit points: {3}"-f $data.monster,$data.attack,$data.damage,$hitPoints)
+                    # SHOWS WHO ATTACKED, HOW MUCH DAMAGE THEY DID AND HOW MANY HITPOINTS ARE REMAINING
+                    Write-Output("You were attacked by a {0} with a {1} attack for {2}. Current hit points: {3}"-f $data.monster,$data.attack,$data.damage,$hitPoints)
                 }      
             }
-            # STATING YOU DEFENCE AND HOW THE ELF NOW FEELS
+            # STATING YOUR DEFENCE AND HOW THE ELF NOW FEELS
             Write-Output "That was sad. And brief. Atleast the elf feels better about himself!!!`n"
         }  
         while($hitPoints -ne 0)      
