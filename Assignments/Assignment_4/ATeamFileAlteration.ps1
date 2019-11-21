@@ -78,7 +78,8 @@ function main {
     $lineOmit = 0
     $alteredData = @()
     
-    # SENDS INPUTFILE AS ININPUTFILE TO CATCH-ERROR FUNCTION
+    # SENDS INPUTFILE AS ININPUTFILE 
+    TO CATCH-ERROR FUNCTION
     $fileDataToAlter = Catch-Error -InInputFile $inputFile
 
     # HEADER STATING THE BELOW TEXT IS THE ORIGIONAL FORM THE TXT FILE
