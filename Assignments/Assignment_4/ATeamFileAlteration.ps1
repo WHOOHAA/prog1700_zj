@@ -79,7 +79,7 @@ function main {
     $alteredData = @()
     
     # SENDS INPUTFILE AS ININPUTFILE 
-    TO CATCH-ERROR FUNCTION
+    # TO CATCH-ERROR FUNCTION
     $fileDataToAlter = Catch-Error -InInputFile $inputFile
 
     # HEADER STATING THE BELOW TEXT IS THE ORIGIONAL FORM THE TXT FILE
