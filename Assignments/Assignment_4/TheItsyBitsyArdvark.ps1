@@ -1,18 +1,38 @@
 #####################################################################
 #    Author: Zachary Johnson                                        #
 #    Date: Nov, 18, 2019                                            #
-#    Description: A Team File Alteration Assignment 4 - Project 1   #
+#    Description: The Itsy Bitsy Assignment 4 - Project 2   #
 #####################################################################
 
 # COMMENT ABOVE
-function Catch-Error($InInputFile, $InOutputFile, $OutFileDataToAlter)
+function Catch-Error($InInputTextFile, $InInputCSVFile, $InOutputFile, $OutFileDataToAlter)
 {
     # INITILIZE VARIABLE
     $numberRegEx = "^\D+$"
 
     # IF PASSED IN VARIABLE IS ININPUTFILE THEN CONTINUE
     # IF NOT THEN ELSEIF
-    if($InInputFile -match $numberRegEx)
+    if($InInputTextFile -match $numberRegEx)
+    {
+        # IF ERROR CATCH THEN OUTPUT TEXT ONLY AND EXIT PROGRAM
+        try
+        {
+            $OutFileDataToAlter = Get-Content $InInputFile
+        }
+        catch [System.IO.DirectoryNotFoundException]
+        {
+            Write-Output "That directory does not exist"
+            EXIT
+        }
+        catch
+        {
+            Write-Output "Unspecified Error"
+            EXIT
+        }    
+        # IF RUNS THROUGH THEN RETURN THE TXT FILE DATA TO THE MAIN FUNCTION
+        RETURN $OutFileDataToAlter
+    }
+    elseif($InInputCSVFile -match $numberRegEx)
     {
         # IF ERROR CATCH THEN OUTPUT TEXT ONLY AND EXIT PROGRAM
         try
@@ -33,72 +53,73 @@ function Catch-Error($InInputFile, $InOutputFile, $OutFileDataToAlter)
         RETURN $OutFileDataToAlter
     }
     # IF PASSED IN VARIABLE IS INOUTPUTFILE THEN CONTINUE
-    elseif($InOutputFile -match $numberRegEx)
-    {
-        # TRYS TO CLEAR CONTENT FORM ALTERED TEXT FILE
-        # IF FILE DOESNT EXISTING CATCH AND OUTPUT NOTHING
-        try
-        {
-            Clear-Content -Path $outputFile -ErrorAction Stop
-        } 
-        catch
-        {
+    # elseif($InOutputFile -match $numberRegEx)
+    # {
+    #     # TRYS TO CLEAR CONTENT FORM ALTERED TEXT FILE
+    #     # IF FILE DOESNT EXISTING CATCH AND OUTPUT NOTHING
+    #     try
+    #     {
+    #         Clear-Content -Path $outputFile -ErrorAction Stop
+    #     } 
+    #     catch
+    #     {
             
-        }
+    #     }
         
         # SAVES THE ALTERED TEXT TO THE NEW ALTERD FILE
         # IF ERROR CATCH AND OUTPUT TEXT ONLY AND EXIT
-        try
-        {
-            $alteredData -join "`n" | Add-Content -Path $outputFile -ErrorAction Stop
-        }
-        catch [System.UnauthorizedAccessException]
-        {
-            Write-Output "You dont have access to that folder"
-            EXIT
-        }    
-        catch [System.IO.DirectoryNotFoundException]
-        {
-            Write-Output "That directory does not exist"
-            EXIT
-        }
-        catch
-        {
-            Write-Output "Unspecified Error writing file"
-            EXIT
-        }
-    }
+#         try
+#         {
+#             $alteredData -join "`n" | Add-Content -Path $outputFile -ErrorAction Stop
+#         }
+#         catch [System.UnauthorizedAccessException]
+#         {
+#             Write-Output "You dont have access to that folder"
+#             EXIT
+#         }    
+#         catch [System.IO.DirectoryNotFoundException]
+#         {
+#             Write-Output "That directory does not exist"
+#             EXIT
+#         }
+#         catch
+#         {
+#             Write-Output "Unspecified Error writing file"
+#             EXIT
+#         }
+#     }
 }
 
 # DO NOT EDIT: The main function to house our program code 
 function main {
 
     # INITILIZING VARIABLES
-    $inputFile = "new_test_input.txt"
-    $outputFile =  "ateam_Altered.txt"
+    $inputTextFile = "the_choices_file.txt"
+    $inputCSVFile = "the_choices_file.csv"
+    #$outputFile =  "ateam_Altered.txt"
     $lineOmit = 0
     $alteredData = @()
     
     # SENDS INPUTFILE AS ININPUTFILE 
     # TO CATCH-ERROR FUNCTION
-    $fileDataToAlter = Catch-Error -InInputFile $inputFile
-
+    $storyArray = Catch-Error -InInputFile $inputTextFile
+    $choicesArray = Catch-Error -InInputFile $inputCSVFile
     # HEADER STATING THE BELOW TEXT IS THE ORIGIONAL FORM THE TXT FILE
-    Write-Output ("-" * 40)
-    Write-Output "Origional Text"
-    Write-Output ("-" * 40)
+    # Write-Output ("-" * 40)
+    # Write-Output "Origional Text"
+    # Write-Output ("-" * 40)
     
     # OUTPUT THE ORIGIONAL TEXT
-    Write-Output $fileDataToAlter
-    Write-Output ""
+    # Write-Output $fileDataToAlter
+    # Write-Output ""
     
     # RANDOM NUMBER IS GENERATED BETWEEN 1 AND THE LAST ARRAY LINE NUMBER TO OMIT
-    $lineOmit = Get-Random -Minimum 1 -Maximum ($fileDataToAlter.Length + 1)
+    # $lineOmit = Get-Random -Minimum 1 -Maximum ($fileDataToAlter.Length + 1)
 
     # HEADER STATING THE BELOW TEXT IS ALTERED
-    Write-Output ("-" * 40)
-    Write-Output "Altered Text"
-    Write-Output ("-" * 40)
+    # Write-Output ("-" * 40)
+    # Write-Output "Altered Text"
+    # Write-Output ("-" * 40)
     
     # FORLOOP CYCLING THOUGH EACH LINE IN THE ORIGIONAL TEXT ARRAY
     for($i = 0; $i -lt $fileDataToAlter.Length; $i++)
@@ -138,7 +159,7 @@ function main {
 
     # SENDS OUTPUTFILE AS INOUTPUTFILE 
     # AND SENDS ALTEREDDATA AS OUTFILEDATATOALTER TO CATCH-ERROR FUNCTION
-    Catch-Error -InOutputFile $outputFile -OutFileDataToAlter $alteredData
+    # Catch-Error -InOutputFile $outputFile -OutFileDataToAlter $alteredData
 }
 
 # DO NOT EDIT: Trigger our main function to launch the program
