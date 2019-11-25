@@ -1,8 +1,8 @@
-#####################################################################
-#    Author: Zachary Johnson                                        #
-#    Date: Nov, 18, 2019                                            #
+#############################################################
+#    Author: Zachary Johnson                                #
+#    Date: Nov, 18, 2019                                    #
 #    Description: The Itsy Bitsy Assignment 4 - Project 2   #
-#####################################################################
+#############################################################
 
 # COMMENT ABOVE
 function Catch-Error($InInputTextFile, $InInputCSVFile, $InOutputFile, $OutFileDataToAlter)
@@ -37,7 +37,7 @@ function Catch-Error($InInputTextFile, $InInputCSVFile, $InOutputFile, $OutFileD
         # IF ERROR CATCH THEN OUTPUT TEXT ONLY AND EXIT PROGRAM
         try
         {
-            $OutFileDataToAlter = Get-Content  $InInputCSVFile
+            $OutFileDataToAlter = Import-CSV  $InInputCSVFile -Header "Question","ChoiceOne","ChoiceTwo","ChoiceThree","ChoiceFour","ChoiceFive"
         }
         catch [System.IO.DirectoryNotFoundException]
         {
@@ -61,173 +61,63 @@ function main {
     # INITILIZING VARIABLES
     $inputTextFile = "the_choices_file.txt"
     $inputCSVFile = "the_choices_file.csv"
-    $dataCSV = @()
-    $tempDataCSV = @()
     $choicesCSV = @()
-    $choiceAnimal = @()
-    $choiceActionOne = @()
-    $choiceAdjective = @()
-    $choiceActionTwo = @()
-    $choiceNoun = @()
-    $choiceActionThree = @()
-    $choiceAdverb = @()
+    $decision = @()
+    $chosen = @()
+
 
 
     
     # SENDS INPUTFILE AS ININPUTFILE 
     # TO CATCH-ERROR FUNCTION
     $storyText = Catch-Error -InInputTextFile $inputTextFile
-    $dataCSV = Catch-Error -InInputCSVFile $inputCSVFile
-    
-    foreach($data in $dataCSV)
+    $choicesCSV = Catch-Error -InInputCSVFile $inputCSVFile
+
+    foreach($data in $choicesCSV)
     {
-        $choicesCSV += $data -split ","
+        Write-Output $data.Question
+        Write-Output $data.ChoiceOne
+        Write-Output $data.ChoiceTwo
+        Write-Output $data.ChoiceThree
+        Write-Output $data.ChoiceFour
+        Write-Output $data.ChoiceFive
+        $decision = Read-Host -Prompt "Choose between a-e"
+        if($decision -eq "a")
+        {
+            $chosen += $data.ChoiceOne
+        }
+        elseif($decision -eq "b")
+        {
+            $chosen += $data.ChoiceTwo
+        }
+        elseif($decision -eq "c")
+        {
+            $chosen += $data.ChoiceThree
+        }
+        elseif($decision -eq "d")
+        {
+            $chosen += $data.ChoiceFour
+        }
+        elseif($decision -eq "e")
+        {
+            $chosen += $data.ChoiceFive
+        }
+        
     }
 
-    for ($i = 0; $i -lt $choicesCSV.length; $i++)
+    # $storyText -replace "_1_", $chosen[0]
+    # $joinedStoryText = $storyText -join "`n"
+
+    for($i = 0; $i -lt $chosen.length; $i++)
     {
-        if($i -le 5)
-        {
-            $choiceAnimal += $choicesCSV[$i]
-        }
-        elseif($i -le 11)
-        {
-            $choiceActionOne += $choicesCSV[$i]
-        }
-        elseif($i -le 17)
-        {
-            $choiceAdjective += $choicesCSV[$i]
-        }
-        elseif($i -le 23)
-        {
-            $choiceActionTwo += $choicesCSV[$i]
-        }
-        elseif($i -le 29)
-        {
-            $choiceNoun += $choicesCSV[$i]
-        }
-        elseif($i -le 35)
-        {
-            $choiceActionThree += $choicesCSV[$i]
-        }
-        elseif($i -le 42)
-        {
-            $choiceAdverb += $choicesCSV[$i]
-        }
+        $replace = "_"+($i + 1)+"_"
+        
+        $storyText = $storyText -replace $replace, $chosen[$i]
     }
 
-    # for ($i = 7; $i -le 13; $i++)
-    # {
 
-    #     $choiceAnimal = @()
+   $storyText
 
-
-    # }
-
-
-    # for ($i = 14; $i -le 20; $i++)
-    # {
-
-    #     $choiceActionOne = @()
-
-
-    # }
-
-
-    # for ($i = 0; $i -le 6; $i++)
-    # {
-
-    #     $choiceAdjective = @()
-
-
-    # }
-
-
-    # for ($i = 0; $i -le 6; $i++)
-    # {
-    #     $choiceActionedTwo = @()
-
-
-
-    # }
-
-    
-    # for ($i = 0; $i -le 6; $i++)
-    # {
-
-    #     $choiceNoun = @()
-
-
-    # }
-
-
-    
-    # for ($i = 0; $i -le 6; $i++)
-    # {
-
-    #     $choiceActionThree = @()
-
-
-    # }
-
-
-    
-    # for ($i = 0; $i -le 6; $i++)
-    # {
-
-    #     $choiceAdverb = @()
-
-
-    # }
-
-
-
-    # for($i = 0; $i -lt $dataCSV.Length; $i++)
-    # {
-    #     $tempDataCSV[$i] = $dataCSV[$i] -split ","
-
-
-    #     for($j = 0; $j -lt $dataCSV.Length; $j++)
-    #     {
-    #         $choicesCSV[$i][$j] = $tempDataCSV[$j] 
-    #     }
-    # }
-
-
-    # for($i = 0; $i -lt $dataCSV.Length; $i++)
-    #         {
-    #         $choicesCSV += ""
-    #         }
-
-    # for($i = 0; $i -lt $dataCSV.Length; $i++)
-    #         {
-    #         $choicesCSV$i += $dataCSV[$i] -split ","
-    #        }
-
-    # FORLOOP CYCLING THOUGH EACH LINE IN THE ORIGIONAL TEXT ARRAY
-    # for($i = 0; $i -lt $choicesCSV.Length; $i++)
-    # {
-
-    #     for($j = 0; $j -lt $choicesCSV[$i].Length; $j++)
-    #     {
-    #         # ADDING 1 TO THE CURRENT CYCLE TO BECOME THE NEW LINE NUMBER
-    #         $choiceNumber = $j + 1
-    #         # $choiceNumberOutput = [string]($choiceNumber) + ") "
-
-    #         Write-Output ("{0}) {1}" -f $choiceNumber, $choicesCSV[$i][$j])
-            
-    #     }
-
-    # }
-
-
-
-
-    # for($i = 0; $i -lt $storyText.Length; $i++)
-    # {
-    #     ($choiceOne, $choiceTwo, $choiceThree, $choiceFour, $choiceFive, $choiceSix)
-
-    # }
 
 }
 
