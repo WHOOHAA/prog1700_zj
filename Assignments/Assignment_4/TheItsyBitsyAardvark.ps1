@@ -61,62 +61,72 @@ function main {
     # INITILIZING VARIABLES
     $inputTextFile = "the_choices_file.txt"
     $inputCSVFile = "the_choices_file.csv"
+    $error = $false
     $choicesCSV = @()
     $decision = @()
     $chosen = @()
-
-
-
     
     # SENDS INPUTFILE AS ININPUTFILE 
     # TO CATCH-ERROR FUNCTION
     $storyText = Catch-Error -InInputTextFile $inputTextFile
     $choicesCSV = Catch-Error -InInputCSVFile $inputCSVFile
 
+    Write-Output "The Itsy Bitsy Aardvark"
+
     foreach($data in $choicesCSV)
     {
-        Write-Output $data.Question
-        Write-Output $data.ChoiceOne
-        Write-Output $data.ChoiceTwo
-        Write-Output $data.ChoiceThree
-        Write-Output $data.ChoiceFour
-        Write-Output $data.ChoiceFive
-        $decision = Read-Host -Prompt "Choose between a-e"
-        if($decision -eq "a")
-        {
-            $chosen += $data.ChoiceOne
+               
+        Write-Output ("`nPlease choose {0}:" -f $data.Question)
+        Write-Output ("a) {0}" -f $data.ChoiceOne)
+        Write-Output ("b) {0}" -f $data.ChoiceTwo)
+        Write-Output ("c) {0}" -f $data.ChoiceThree)
+        Write-Output ("d) {0}" -f $data.ChoiceFour)
+        Write-Output ("e) {0}" -f $data.ChoiceFive)
+        do
+        { 
+            $decision = Read-Host -Prompt "Enter Choice (a-e)"
+            if($decision -eq "a")
+            {
+                $chosen += $data.ChoiceOne
+                $error = $false
+            }
+            elseif($decision -eq "b")
+            {
+                $chosen += $data.ChoiceTwo
+                $error = $false
+            }
+            elseif($decision -eq "c")
+            {
+                $chosen += $data.ChoiceThree
+                $error = $false
+            }
+            elseif($decision -eq "d")
+            {
+                $chosen += $data.ChoiceFour
+                $error = $false
+            }
+            elseif($decision -eq "e")
+            {
+                $chosen += $data.ChoiceFive
+                $error = $false
+            }
+            else 
+            {
+                $error = $true     
+            }
         }
-        elseif($decision -eq "b")
-        {
-            $chosen += $data.ChoiceTwo
-        }
-        elseif($decision -eq "c")
-        {
-            $chosen += $data.ChoiceThree
-        }
-        elseif($decision -eq "d")
-        {
-            $chosen += $data.ChoiceFour
-        }
-        elseif($decision -eq "e")
-        {
-            $chosen += $data.ChoiceFive
-        }
-        
+        while($error -eq $true)
     }
-
-    # $storyText -replace "_1_", $chosen[0]
-    # $joinedStoryText = $storyText -join "`n"
 
     for($i = 0; $i -lt $chosen.length; $i++)
     {
         $replace = "_"+($i + 1)+"_"
         
-        $storyText = $storyText -replace $replace, $chosen[$i]
+        $storyText = $storyText -replace $replace, $chosen[$i].ToUpper()
     }
 
-
-   $storyText
+    Write-Output "`nYour Completed Story:`n"
+    $storyText
 
 
 }
