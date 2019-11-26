@@ -8,11 +8,11 @@
 function Catch-Error($InInputMapFile)
 {
     # INITILIZE VARIABLE
-    $numberRegEx = "^\D+$"
+    $letterRegEx = "^\D+$"
 
     # IF PASSED IN VARIABLE IS ININPUTFILE THEN CONTINUE
     
-    if($InInputMapFile -match $numberRegEx)
+    if($InInputMapFile -match $letterRegEx)
     {
         # IF ERROR CATCH THEN OUTPUT TEXT ONLY AND EXIT PROGRAM
         try
@@ -40,8 +40,9 @@ function main {
 
     # INITILIZING VARIABLES
     $inputMapFile = "map.txt"
-    [int]($misslesRemaining) = 30
+    $misslesRemaining = [int](30)
     $error = $false
+    $letterRegEx = "^[A-J]+$"
 
     
     # SENDS INPUTFILE AS ININPUTFILE 
@@ -59,8 +60,10 @@ function main {
     {
         for($i = 0; $i -lt 30; $i++)
         {
+            $error = $false
+
             Write-Output "You have $misslesRemaining missles to fire to sink All five ships.`n"      
-            Write-Output "   A B C D E F G H I J`n"
+            Write-Output "   A B C D E F G H I J"
             Write-Output ("1  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $map[0][0], $map[0][1], $map[0][2], $map[0][3], $map[0][4], $map[0][5], $map[0][6], $map[0][7], $map[0][8], $map[0][9])
             Write-Output ("2  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $map[1][0], $map[1][1], $map[1][2], $map[1][3], $map[1][4], $map[1][5], $map[1][6], $map[1][7], $map[1][8], $map[1][9])
             Write-Output ("3  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $map[2][0], $map[2][1], $map[2][2], $map[2][3], $map[2][4], $map[2][5], $map[2][6], $map[2][7], $map[2][8], $map[2][9])
@@ -71,43 +74,165 @@ function main {
             Write-Output ("8  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $map[7][0], $map[7][1], $map[7][2], $map[7][3], $map[7][4], $map[7][5], $map[7][6], $map[7][7], $map[7][8], $map[7][9])
             Write-Output ("9  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $map[8][0], $map[8][1], $map[8][2], $map[8][3], $map[8][4], $map[8][5], $map[8][6], $map[8][7], $map[8][8], $map[8][9])
             Write-Output ("10 {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $map[9][0], $map[9][1], $map[9][2], $map[9][3], $map[9][4], $map[9][5], $map[9][6], $map[9][7], $map[9][8], $map[9][9])
-            
-        #     do
-        #     { 
-        #         $decision = Read-Host -Prompt "Enter Choice (a-e)"
-        #         if($decision -eq "a")
-        #         {
-        #             $chosen += $data.ChoiceOne
-        #             $error = $false
-        #         }
-        #         elseif($decision -eq "b")
-        #         {
-        #             $chosen += $data.ChoiceTwo
-        #             $error = $false
-        #         }
-        #         elseif($decision -eq "c")
-        #         {
-        #             $chosen += $data.ChoiceThree
-        #             $error = $false
-        #         }
-        #         elseif($decision -eq "d")
-        #         {
-        #             $chosen += $data.ChoiceFour
-        #             $error = $false
-        #         }
-        #         elseif($decision -eq "e")
-        #         {
-        #             $chosen += $data.ChoiceFive
-        #             $error = $false
-        #         }
-        #         else 
-        #         {
-        #             $error = $true     
-        #         }
-        #     }
-        #     while($error -eq $true)
-        $misslesRemaining = $misslesRemaining - 1
-    }
+
+            do
+            {
+                do
+                { 
+                    $attackMap = @()
+                    
+                    try
+                    {    
+                        $attack = Read-Host -Prompt "Choose your target (Ex. A1)"
+                        $attack = $attack.ToUpper()
+                        $error = $false
+                    }
+                    Catch
+                    {
+                        $error = $true
+                    }
+                }
+                While($error -eq $true)
+                
+                if($attack.length -lt 2 -or $attack.length -gt 3)
+                {
+                    $error = $true
+                }
+                elseif($attack -match $letterRegEx)
+                {
+                    $error = $true
+                }
+                elseif($attack.Contains("A"))
+                {
+                    Write-Output "a"
+                    $attackMap += [int](1)
+                    $attackMap += [int]($attack -replace "A","")
+                    $attackMap
+                    if($attackMap[1] -gt 10)
+                    {
+                        $error = $true
+                        Write-Output "opps to big"
+                    }
+                }
+                elseif($attack.Contains("B"))
+                {
+                    Write-Output "b"
+                    $attackMap += [int](2)
+                    $attackMap += [int]($attack -replace "B","")
+                    $attackMap
+                    if($attackMap[1] -gt 10)
+                    {
+                        $error = $true
+                        Write-Output "opps to big"
+                    }
+                }
+                elseif($attack.Contains("C"))
+                {
+                    Write-Output "c"
+                    $attackMap += [int](3)
+                    $attackMap += [int]($attack -replace "C","")
+                    $attackMap
+                    if($attackMap[1] -gt 10)
+                    {
+                        $error = $true
+                        Write-Output "opps to big"
+                    }
+                }
+                elseif($attack.Contains("D"))
+                {
+                    Write-Output "d"
+                    $attackMap += [int](4)
+                    $attackMap += [int]($attack -replace "D","")
+                    $attackMap
+                    if($attackMap[1] -gt 10)
+                    {
+                        $error = $true
+                        Write-Output "opps to big"
+                    }
+                }
+                elseif($attack.Contains("E"))
+                {
+                    Write-Output "e"
+                    $attackMap += [int](5)
+                    $attackMap += [int]($attack -replace "E","")
+                    $attackMap
+                    if($attackMap[1] -gt 10)
+                    {
+                        $error = $true
+                        Write-Output "opps to big"
+                    }
+                }
+                elseif($attack.Contains("F"))
+                {
+                    Write-Output "f"
+                    $attackMap += [int](6)
+                    $attackMap += [int]($attack -replace "F","")
+                    $attackMap
+                    if($attackMap[1] -gt 10)
+                    {
+                        $error = $true
+                        Write-Output "opps to big"
+                    }
+                }
+                elseif($attack.Contains("G"))
+                {
+                    Write-Output "g"
+                    $attackMap += [int](7)
+                    $attackMap += [int]($attack -replace "G","")
+                    $attackMap
+                    if($attackMap[1] -gt 10)
+                    {
+                        $error = $true
+                        Write-Output "opps to big"
+                    }
+                }
+                elseif($attack.Contains("H"))
+                {
+                    Write-Output "h"
+                    $attackMap += [int](8)
+                    $attackMap += [int]($attack -replace "H","")
+                    $attackMap
+                    if($attackMap[1] -gt 10)
+                    {
+                        $error = $true
+                        Write-Output "opps to big"
+                    }
+                }
+                elseif($attack.Contains("I"))
+                {
+                    Write-Output "i"
+                    $attackMap += [int](9)
+                    $attackMap += [int]($attack -replace "I","")
+                    $attackMap
+                    if($attackMap[1] -gt 10)
+                    {
+                        $error = $true
+                        Write-Output "opps to big"
+                    }
+                }
+                elseif($attack.Contains("J"))
+                {
+                    Write-Output "j"
+                    $attackMap += [int](10)
+                    $attackMap += [int]($attack -replace "J","")
+                    $attackMap
+                    if($attackMap[1] -gt 10)
+                    {
+                        $error = $true
+                        Write-Output "opps to big"
+                    }
+                }
+                else
+                {
+                    $error = $true
+                }
+
+                
+            }
+            While($error -eq $true)
+
+            $misslesRemaining = $misslesRemaining - 1
+        }
         
     }
     While($misslesRemaining -eq 0)
