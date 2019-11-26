@@ -43,6 +43,8 @@ function main {
     $misslesRemaining = [int](30)
     $error = $false
     $letterRegEx = "^[A-J]+$"
+    $hits = 0
+    $enemyCount = 0
 
     
     # SENDS INPUTFILE AS ININPUTFILE 
@@ -55,171 +57,228 @@ function main {
         $map += @(,($tempMapFormatted))
     }
 
+    # COUNTS THE NUMER OF '1' AKA ENIMIES INEACH MAP
+    # ALLOWS FOR CUSTOM 10X10 MAPS WITH MORE THEN 17 ENEMIES
+    for($i = 0; $i -lt 10; $i++)
+    {
+        for ($j = 0; $j -lt 10; $j++)
+        {
+            if($map[$i][$j] -eq "1")
+            {
+                $enemyCount = $enemyCount + 1
+            }
+        }
+    }
+
+    # GAME ON
     Write-Output "Let's Play Battleship!"
     do
     {
+        # FORLOOP THAT ALLOWS 30 CYCLES FOR THE 30 SHOTS
         for($i = 0; $i -lt 30; $i++)
-        {
+        {   
+            # SETS FOR NO ERROR AT START
             $error = $false
 
-            Write-Output "You have $misslesRemaining missles to fire to sink All five ships.`n"      
+            # TELLS YOU HOW MANY MISSLES YOU HAVE REMAINING
+            Write-Output "You have $misslesRemaining missiles to fire to sink All five ships.`n"      
+            # SHOWS THE MAP FOR HITS AND MISSES
             Write-Output "   A B C D E F G H I J"
-            Write-Output ("1  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $map[0][0], $map[0][1], $map[0][2], $map[0][3], $map[0][4], $map[0][5], $map[0][6], $map[0][7], $map[0][8], $map[0][9])
-            Write-Output ("2  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $map[1][0], $map[1][1], $map[1][2], $map[1][3], $map[1][4], $map[1][5], $map[1][6], $map[1][7], $map[1][8], $map[1][9])
-            Write-Output ("3  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $map[2][0], $map[2][1], $map[2][2], $map[2][3], $map[2][4], $map[2][5], $map[2][6], $map[2][7], $map[2][8], $map[2][9])
-            Write-Output ("4  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $map[3][0], $map[3][1], $map[3][2], $map[3][3], $map[3][4], $map[3][5], $map[3][6], $map[3][7], $map[3][8], $map[3][9])
-            Write-Output ("5  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $map[4][0], $map[4][1], $map[4][2], $map[4][3], $map[4][4], $map[4][5], $map[4][6], $map[4][7], $map[4][8], $map[4][9])
-            Write-Output ("6  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $map[5][0], $map[5][1], $map[5][2], $map[5][3], $map[5][4], $map[5][5], $map[5][6], $map[5][7], $map[5][8], $map[5][9])
-            Write-Output ("7  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $map[6][0], $map[6][1], $map[6][2], $map[6][3], $map[6][4], $map[6][5], $map[6][6], $map[6][7], $map[6][8], $map[6][9])
-            Write-Output ("8  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $map[7][0], $map[7][1], $map[7][2], $map[7][3], $map[7][4], $map[7][5], $map[7][6], $map[7][7], $map[7][8], $map[7][9])
-            Write-Output ("9  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $map[8][0], $map[8][1], $map[8][2], $map[8][3], $map[8][4], $map[8][5], $map[8][6], $map[8][7], $map[8][8], $map[8][9])
-            Write-Output ("10 {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $map[9][0], $map[9][1], $map[9][2], $map[9][3], $map[9][4], $map[9][5], $map[9][6], $map[9][7], $map[9][8], $map[9][9])
+            Write-Output ("1  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $mapView[0][0], $mapView[0][1], $mapView[0][2], $mapView[0][3], $mapView[0][4], $mapView[0][5], $mapView[0][6], $mapView[0][7], $mapView[0][8], $mapView[0][9])
+            Write-Output ("2  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $mapView[1][0], $mapView[1][1], $mapView[1][2], $mapView[1][3], $mapView[1][4], $mapView[1][5], $mapView[1][6], $mapView[1][7], $mapView[1][8], $mapView[1][9])
+            Write-Output ("3  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $mapView[2][0], $mapView[2][1], $mapView[2][2], $mapView[2][3], $mapView[2][4], $mapView[2][5], $mapView[2][6], $mapView[2][7], $mapView[2][8], $mapView[2][9])
+            Write-Output ("4  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $mapView[3][0], $mapView[3][1], $mapView[3][2], $mapView[3][3], $mapView[3][4], $mapView[3][5], $mapView[3][6], $mapView[3][7], $mapView[3][8], $mapView[3][9])
+            Write-Output ("5  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $mapView[4][0], $mapView[4][1], $mapView[4][2], $mapView[4][3], $mapView[4][4], $mapView[4][5], $mapView[4][6], $mapView[4][7], $mapView[4][8], $mapView[4][9])
+            Write-Output ("6  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $mapView[5][0], $mapView[5][1], $mapView[5][2], $mapView[5][3], $mapView[5][4], $mapView[5][5], $mapView[5][6], $mapView[5][7], $mapView[5][8], $mapView[5][9])
+            Write-Output ("7  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $mapView[6][0], $mapView[6][1], $mapView[6][2], $mapView[6][3], $mapView[6][4], $mapView[6][5], $mapView[6][6], $mapView[6][7], $mapView[6][8], $mapView[6][9])
+            Write-Output ("8  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $mapView[7][0], $mapView[7][1], $mapView[7][2], $mapView[7][3], $mapView[7][4], $mapView[7][5], $mapView[7][6], $mapView[7][7], $mapView[7][8], $mapView[7][9])
+            Write-Output ("9  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $mapView[8][0], $mapView[8][1], $mapView[8][2], $mapView[8][3], $mapView[8][4], $mapView[8][5], $mapView[8][6], $mapView[8][7], $mapView[8][8], $mapView[8][9])
+            Write-Output ("10 {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $mapView[9][0], $mapView[9][1], $mapView[9][2], $mapView[9][3], $mapView[9][4], $mapView[9][5], $mapView[9][6], $mapView[9][7], $mapView[9][8], $mapView[9][9])
 
+            #DO UNTILL NO ERROR
             do
             {
+                #DO UNTILL NO ERROR
                 do
                 { 
+                    #RESETS THE ATTACK MAP ARRAY
                     $attackMap = @()
                     
+                    # CHECKS FOR ANY ERROR INCLUDING HITTING ENTER WITH NO INPUT
                     try
-                    {    
+                    {   
+                        # COLLECTS INPUT AND SETS LOWERCASE LETTERS AS UPPER IF NEEDED
                         $attack = Read-Host -Prompt "Choose your target (Ex. A1)"
                         $attack = $attack.ToUpper()
+                        # RESETS ERROR TO FALSE FOR REPEATED RUNTHROUGH
                         $error = $false
                     }
                     Catch
                     {
+                        #IF ERROR IS CAUGHT THEN SET ERROR TO TRUE
                         $error = $true
                     }
                 }
                 While($error -eq $true)
                 
+                # IF INPUT IS NT BETWEEN 2 AND 3 CHARACTERS IN LENGTH THEN SET ERROR TO TRUE
                 if($attack.length -lt 2 -or $attack.length -gt 3)
                 {
                     $error = $true
                 }
+                # IF ATTACK HAS MORE THEN ONE LETTER SET ERROR TO TRUE
                 elseif($attack -match $letterRegEx)
                 {
                     $error = $true
                 }
+                # IF INPPUT CONTAINS A
                 elseif($attack.Contains("A"))
                 {
-                    Write-Output "a"
+                    # SET FIRST INDEX VALUE TO 0 WHICH IS THE EQUIVILANT PLACE ON THE MAP
                     $attackMap += [int](0)
+                    # REPLACES A WITH A BLANK AND SETS THE VALUE REAMING AS AN IN AND SUBTRACTS 1 TO MATCH ITS EQUIVILANT PLACE ON THE MAP
                     $attack = [int]($attack -replace "A","") - 1
+                    # SETS SECOND INDEX VALUE
                     $attackMap += $attack
+                    # IF THE SECOND INDEX VALUE IS GREATER THEN 9 SET ERROR AS TRUE
                     if($attackMap[1] -gt 9)
                     {
                         $error = $true
-                        Write-Output "opps to big"
                     }
                 }
+                # IF INPPUT CONTAINS B
                 elseif($attack.Contains("B"))
                 {
-                    Write-Output "b"
+                    # SET FIRST INDEX VALUE TO 1 WHICH IS THE EQUIVILANT PLACE ON THE MAP
                     $attackMap += [int](1)
+                    # REPLACES B WITH A BLANK AND SETS THE VALUE REAMING AS AN IN AND SUBTRACTS 1 TO MATCH ITS EQUIVILANT PLACE ON THE MAP
                     $attack = [int]($attack -replace "B","") - 1
+                    # SETS SECOND INDEX VALUE
                     $attackMap += $attack
+                    # IF THE SECOND INDEX VALUE IS GREATER THEN 9 SET ERROR AS TRUE
                     if($attackMap[1] -gt 9)
                     {
                         $error = $true
-                        Write-Output "opps to big"
                     }
                 }
+                # IF INPPUT CONTAINS C
                 elseif($attack.Contains("C"))
                 {
-                    Write-Output "c"
+                    # SET FIRST INDEX VALUE TO 2 WHICH IS THE EQUIVILANT PLACE ON THE MAP
                     $attackMap += [int](2)
+                    # REPLACES C WITH A BLANK AND SETS THE VALUE REAMING AS AN IN AND SUBTRACTS 1 TO MATCH ITS EQUIVILANT PLACE ON THE MAP
                     $attack = [int]($attack -replace "C","") - 1
+                    # SETS SECOND INDEX VALUE
                     $attackMap += $attack
+                    # IF THE SECOND INDEX VALUE IS GREATER THEN 9 SET ERROR AS TRUE
                     if($attackMap[1] -gt 9)
                     {
                         $error = $true
-                        Write-Output "opps to big"
                     }
                 }
+                # IF INPPUT CONTAINS D
                 elseif($attack.Contains("D"))
                 {
-                    Write-Output "d"
+                    # SET FIRST INDEX VALUE TO 3 WHICH IS THE EQUIVILANT PLACE ON THE MAP
                     $attackMap += [int](3)
+                    # REPLACES D WITH A BLANK AND SETS THE VALUE REAMING AS AN IN AND SUBTRACTS 1 TO MATCH ITS EQUIVILANT PLACE ON THE MAP
                     $attack = [int]($attack -replace "D","") - 1
+                    # SETS SECOND INDEX VALUE
                     $attackMap += $attack
+                    # IF THE SECOND INDEX VALUE IS GREATER THEN 9 SET ERROR AS TRUE
                     if($attackMap[1] -gt 9)
                     {
                         $error = $true
-                        Write-Output "opps to big"
                     }
                 }
+                # IF INPPUT CONTAINS D
                 elseif($attack.Contains("E"))
                 {
-                    Write-Output "e"
+                    # SET FIRST INDEX VALUE TO 4 WHICH IS THE EQUIVILANT PLACE ON THE MAP
                     $attackMap += [int](4)
+                    # REPLACES E WITH A BLANK AND SETS THE VALUE REAMING AS AN IN AND SUBTRACTS 1 TO MATCH ITS EQUIVILANT PLACE ON THE MAP
                     $attack = [int]($attack -replace "E","") - 1
+                    # SETS SECOND INDEX VALUE
                     $attackMap += $attack
+                    # IF THE SECOND INDEX VALUE IS GREATER THEN 9 SET ERROR AS TRUE
                     if($attackMap[1] -gt 9)
                     {
                         $error = $true
-                        Write-Output "opps to big"
                     }
                 }
+                # IF INPPUT CONTAINS F
                 elseif($attack.Contains("F"))
                 {
-                    Write-Output "f"
+                    # SET FIRST INDEX VALUE TO 5 WHICH IS THE EQUIVILANT PLACE ON THE MAP
                     $attackMap += [int](5)
+                    # REPLACES F WITH A BLANK AND SETS THE VALUE REAMING AS AN IN AND SUBTRACTS 1 TO MATCH ITS EQUIVILANT PLACE ON THE MAP
                     $attack = [int]($attack -replace "F","") - 1
+                    # SETS SECOND INDEX VALUE
                     $attackMap += $attack
+                    # IF THE SECOND INDEX VALUE IS GREATER THEN 9 SET ERROR AS TRUE
                     if($attackMap[1] -gt 9)
                     {
                         $error = $true
-                        Write-Output "opps to big"
                     }
                 }
+                # IF INPPUT CONTAINS G
                 elseif($attack.Contains("G"))
                 {
-                    Write-Output "g"
+                    # SET FIRST INDEX VALUE TO 6 WHICH IS THE EQUIVILANT PLACE ON THE MAP
                     $attackMap += [int](6)
+                    # REPLACES G WITH A BLANK AND SETS THE VALUE REAMING AS AN IN AND SUBTRACTS 1 TO MATCH ITS EQUIVILANT PLACE ON THE MAP
                     $attack = [int]($attack -replace "G","") - 1
+                    # SETS SECOND INDEX VALUE
                     $attackMap += $attack
+                    # IF THE SECOND INDEX VALUE IS GREATER THEN 9 SET ERROR AS TRUE
                     if($attackMap[1] -gt 9)
                     {
                         $error = $true
-                        Write-Output "opps to big"
                     }
                 }
+                # IF INPPUT CONTAINS H
                 elseif($attack.Contains("H"))
                 {
-                    Write-Output "h"
+                    # SET FIRST INDEX VALUE TO 7 WHICH IS THE EQUIVILANT PLACE ON THE MAP
                     $attackMap += [int](7)
+                    # REPLACES H WITH A BLANK AND SETS THE VALUE REAMING AS AN IN AND SUBTRACTS 1 TO MATCH ITS EQUIVILANT PLACE ON THE MAP
                     $attack = [int]($attack -replace "H","") - 1
+                    # SETS SECOND INDEX VALUE
                     $attackMap += $attack
+                    # IF THE SECOND INDEX VALUE IS GREATER THEN 9 SET ERROR AS TRUE
                     if($attackMap[1] -gt 9)
                     {
                         $error = $true
-                        Write-Output "opps to big"
                     }
                 }
+                # IF INPPUT CONTAINS I
                 elseif($attack.Contains("I"))
                 {
-                    Write-Output "i"
+                    # SET FIRST INDEX VALUE TO 8 WHICH IS THE EQUIVILANT PLACE ON THE MAP
                     $attackMap += [int](8)
+                    # REPLACES I WITH A BLANK AND SETS THE VALUE REAMING AS AN IN AND SUBTRACTS 1 TO MATCH ITS EQUIVILANT PLACE ON THE MAP
                     $attack = [int]($attack -replace "I","") - 1
+                    # SETS SECOND INDEX VALUE
                     $attackMap += $attack
+                    # IF THE SECOND INDEX VALUE IS GREATER THEN 9 SET ERROR AS TRUE
                     if($attackMap[1] -gt 9)
                     {
                         $error = $true
-                        Write-Output "opps to big"
                     }
                 }
+                # IF INPPUT CONTAINS J
                 elseif($attack.Contains("J"))
                 {
-                    Write-Output "j"
+                    # SET FIRST INDEX VALUE TO 9 WHICH IS THE EQUIVILANT PLACE ON THE MAP
                     $attackMap += [int](9)
+                    # REPLACES J WITH A BLANK AND SETS THE VALUE REAMING AS AN IN AND SUBTRACTS 1 TO MATCH ITS EQUIVILANT PLACE ON THE MAP
                     $attack = [int]($attack -replace "J","") - 1
+                    # SETS SECOND INDEX VALUE
                     $attackMap += $attack
+                    # IF THE SECOND INDEX VALUE IS GREATER THEN 9 SET ERROR AS TRUE
                     if($attackMap[1] -gt 9)
                     {
                         $error = $true
-                        Write-Output "opps to big"
                     }
                 }
                 else
@@ -236,14 +295,16 @@ function main {
             if($map[$attackMap[1]][$attackMap[0]] -eq 1)
             {
                 Write-Output "Hit!!!!!"
-                $map[$attackMap[1]][$attackMap[0]] = "X"
+                $mapView[$attackMap[1]][$attackMap[0]] = "X"
+                $hits = $hits + 1
             }
             elseif($map[$attackMap[1]][$attackMap[0]] -eq 0)
             {
                 Write-Output "Miss"
+                $mapView[$attackMap[1]][$attackMap[0]] = "0"
             }
 
-            foreach ($map)
+            
             
         }
         
@@ -251,15 +312,9 @@ function main {
     While($misslesRemaining -eq 0)
     
     
-    # for($i = 0; $i -lt $chosen.length; $i++)
-    # {
-    #     $replace = "_"+($i + 1)+"_"
-        
-    #     $storyText = $storyText -replace $replace, $chosen[$i].ToUpper()
-    # }
+
 
     Write-Output "`nYour Completed Story:`n"
-    # $storyText
 
 
 }
