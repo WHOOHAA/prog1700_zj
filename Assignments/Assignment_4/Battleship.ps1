@@ -323,6 +323,11 @@ function main {
                 # TELLS YOU HOW MANY MISSLES YOU HAVE REMAINING
                 Write-Output "You have $misslesRemaining missiles remaining." 
             }
+            # ALL SHIPS HAVE BEEN SUNK SET $I TO 29 TO END THE FORLOOP
+            elseif($hits -eq $enemyCount)
+            {
+                $i = 29
+            }
             
         }
         
