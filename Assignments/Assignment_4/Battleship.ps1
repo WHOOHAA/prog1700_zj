@@ -129,7 +129,7 @@ function main {
                         $error = $true
                     }
                 }
-                While($error -eq $true)
+                While($error -eq $true -or $hits -ne $enemyCount)
                 
                 # IF INPUT IS NT BETWEEN 2 AND 3 CHARACTERS IN LENGTH THEN SET ERROR TO TRUE
                 if($attack.length -lt 2 -or $attack.length -gt 3)
@@ -298,7 +298,7 @@ function main {
 
                 
             }
-            While($error -eq $true)
+            While($error -eq $true -or $hits -ne $enemyCount)
 
             # IF HIT OUTPUT HIT!!!!!! AND X MARKS THE SPOT ON MAPVIEW
             if($map[$attackMap[1]][$attackMap[0]] -eq 1)
@@ -314,16 +314,20 @@ function main {
                 $mapView[$attackMap[1]][$attackMap[0]] = "0"
             }
 
-            # REDUCING MISSISLES BY 1
-            $misslesRemaining = $misslesRemaining - 1
-            # TELLS YOU HOW MANY MISSLES YOU HAVE REMAINING
-            Write-Output "You have $misslesRemaining missiles remaining." 
-            
+            # THIS IF STATMENT IS USED TO MATCH FORMATTING
+            # IT DOES NOT SHOW THE REMAINING MISSISLES IF YOU SINK ALL THE SHIPS
+            if($hits -ne $enemyCount)
+            {
+                # REDUCING MISSISLES BY 1
+                $misslesRemaining = $misslesRemaining - 1
+                # TELLS YOU HOW MANY MISSLES YOU HAVE REMAINING
+                Write-Output "You have $misslesRemaining missiles remaining." 
+            }
             
         }
         
     }
-    While($misslesRemaining -ne 0)
+    While($misslesRemaining -ne 0  -or $hits -ne $enemyCount)
     
     # FINAL OUTPUT WIN
     if($hits -eq $enemyCount)
