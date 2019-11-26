@@ -1,10 +1,10 @@
-#############################################################
-#    Author: Zachary Johnson                                #
-#    Date: Nov, 18, 2019                                    #
-#    Description: The Itsy Bitsy Assignment 4 - Project 2   #
-#############################################################
+##############################################################
+#    Author: Zachary Johnson                                 #
+#    Date: Nov, 18, 2019                                     #
+#    Description: The Itsy Bitsy Assignment 4 - Project 2    #
+##############################################################
 
-# COMMENT ABOVE
+# ERROR CHECKING USING TRY AND CATCH WHEN GATHERING INFORMATION FROM FILES THERE IS MORE DETAILS BELOW
 function Catch-Error($InInputTextFile, $InInputCSVFile, $InOutputFile, $OutFileDataToAlter)
 {
     # INITILIZE VARIABLE

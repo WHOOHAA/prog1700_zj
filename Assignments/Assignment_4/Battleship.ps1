@@ -1,10 +1,10 @@
-#########################################################
-#    Author: Zachary Johnson                            #
-#    Date: Nov, 25, 2019                                #
-#    Description: Battleship Assignment 4 - Project 3   #
-#########################################################
+##########################################################
+#    Author: Zachary Johnson                             #
+#    Date: Nov, 25, 2019                                 #
+#    Description: Battleship Assignment 4 - Project 3    #
+##########################################################
 
-# COMMENT ABOVE
+# ERROR CHECKING USING TRY AND CATCH WHEN GATHERING INFORMATION FROM FILES THERE IS MORE DETAILS BELOW
 function Catch-Error($InInputMapFile)
 {
     # INITILIZE VARIABLE

@@ -4,7 +4,7 @@
 #    Description: A Team File Alteration Assignment 4 - Project 1   #
 #####################################################################
 
-# COMMENT ABOVE
+# ERROR CHECKING USING TRY AND CATCH WHEN GATHERING INFORMATION FROM FILES THERE IS MORE DETAILS BELOW
 function Catch-Error($InInputFile, $InOutputFile, $OutFileDataToAlter)
 {
     # INITILIZE VARIABLE
