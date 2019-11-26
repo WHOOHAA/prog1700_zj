@@ -45,7 +45,16 @@ function main {
     $letterRegEx = "^[A-J]+$"
     $hits = 0
     $enemyCount = 0
-    $mapView = @((" "," "," "," "," "," "," "," "," "," "),(" "," "," "," "," "," "," "," "," "," "),(" "," "," "," "," "," "," "," "," "," "),(" "," "," "," "," "," "," "," "," "," "),(" "," "," "," "," "," "," "," "," "," "),(" "," "," "," "," "," "," "," "," "," "),(" "," "," "," "," "," "," "," "," "," "),(" "," "," "," "," "," "," "," "," "," "),(" "," "," "," "," "," "," "," "," "," "),(" "," "," "," "," "," "," "," "," "," "))
+    $mapView = @((" "," "," "," "," "," "," "," "," "," "),
+                 (" "," "," "," "," "," "," "," "," "," "),
+                 (" "," "," "," "," "," "," "," "," "," "),
+                 (" "," "," "," "," "," "," "," "," "," "),
+                 (" "," "," "," "," "," "," "," "," "," "),
+                 (" "," "," "," "," "," "," "," "," "," "),
+                 (" "," "," "," "," "," "," "," "," "," "),
+                 (" "," "," "," "," "," "," "," "," "," "),
+                 (" "," "," "," "," "," "," "," "," "," "),
+                 (" "," "," "," "," "," "," "," "," "," "))
 
     
     # SENDS INPUTFILE AS ININPUTFILE 
@@ -73,6 +82,8 @@ function main {
 
     # GAME ON
     Write-Output "Let's Play Battleship!"
+    # TELLS YOU HOW MANY MISSLES YOU HAVE
+    Write-Output "You have $misslesRemaining missiles to fire to sink All five ships.`n" 
     do
     {
         # FORLOOP THAT ALLOWS 30 CYCLES FOR THE 30 SHOTS
@@ -81,8 +92,6 @@ function main {
             # SETS FOR NO ERROR AT START
             $error = $false
 
-            # TELLS YOU HOW MANY MISSLES YOU HAVE REMAINING
-            Write-Output "You have $misslesRemaining missiles to fire to sink All five ships.`n"      
             # SHOWS THE MAP FOR HITS AND MISSES
             Write-Output "   A B C D E F G H I J"
             Write-Output ("1  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $mapView[0][0], $mapView[0][1], $mapView[0][2], $mapView[0][3], $mapView[0][4], $mapView[0][5], $mapView[0][6], $mapView[0][7], $mapView[0][8], $mapView[0][9])
@@ -94,7 +103,7 @@ function main {
             Write-Output ("7  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $mapView[6][0], $mapView[6][1], $mapView[6][2], $mapView[6][3], $mapView[6][4], $mapView[6][5], $mapView[6][6], $mapView[6][7], $mapView[6][8], $mapView[6][9])
             Write-Output ("8  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $mapView[7][0], $mapView[7][1], $mapView[7][2], $mapView[7][3], $mapView[7][4], $mapView[7][5], $mapView[7][6], $mapView[7][7], $mapView[7][8], $mapView[7][9])
             Write-Output ("9  {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $mapView[8][0], $mapView[8][1], $mapView[8][2], $mapView[8][3], $mapView[8][4], $mapView[8][5], $mapView[8][6], $mapView[8][7], $mapView[8][8], $mapView[8][9])
-            Write-Output ("10 {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}" -f $mapView[9][0], $mapView[9][1], $mapView[9][2], $mapView[9][3], $mapView[9][4], $mapView[9][5], $mapView[9][6], $mapView[9][7], $mapView[9][8], $mapView[9][9])
+            Write-Output ("10 {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}`n" -f $mapView[9][0], $mapView[9][1], $mapView[9][2], $mapView[9][3], $mapView[9][4], $mapView[9][5], $mapView[9][6], $mapView[9][7], $mapView[9][8], $mapView[9][9])
 
             #DO UNTILL NO ERROR
             do
@@ -291,31 +300,46 @@ function main {
             }
             While($error -eq $true)
 
-            $misslesRemaining = $misslesRemaining - 1
-            
+            # IF HIT OUTPUT HIT!!!!!! AND X MARKS THE SPOT ON MAPVIEW
             if($map[$attackMap[1]][$attackMap[0]] -eq 1)
             {
                 Write-Output "Hit!!!!!"
                 $mapView[$attackMap[1]][$attackMap[0]] = "X"
                 $hits = $hits + 1
             }
+            # IF MISS OUTPUT MISS AND 0 MARKS THE PLOP ON MAPVIEW
             elseif($map[$attackMap[1]][$attackMap[0]] -eq 0)
             {
                 Write-Output "Miss"
                 $mapView[$attackMap[1]][$attackMap[0]] = "0"
             }
 
+            # REDUCING MISSISLES BY 1
+            $misslesRemaining = $misslesRemaining - 1
+            # TELLS YOU HOW MANY MISSLES YOU HAVE REMAINING
+            Write-Output "You have $misslesRemaining missiles remaining." 
             
             
         }
         
     }
-    While($misslesRemaining -eq 0)
+    While($misslesRemaining -ne 0)
     
-    
+    # FINAL OUTPUT WIN
+    if($hits -eq $enemyCount)
+    {
+        Write-Output "YOU SANK MY ENTIRE FLEET!"
+        Write-Output ("You had {0} of {1} hits, which sank all the ships." -f $hits, $enemyCount)
+        Write-Output "You won, Congratulations!"
+    }
+    #FINAL OUTPUT LOOSE
+    elseif($hits -ne $enemyCount)
+    {
+        Write-Output "GAME OVER"
+        Write-Output ("You had {0} of {1} hits, but didn'T sink all the ships." -f $hits, $enemyCount)
+        Write-Output "Better luck next time"
+    }
 
-
-    Write-Output "`nYour Completed Story:`n"
 
 
 }
