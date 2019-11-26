@@ -67,7 +67,7 @@ function main {
         $map += @(,($tempMapFormatted))
     }
 
-    # COUNTS THE NUMER OF '1' AKA ENIMIES INEACH MAP
+    # COUNTS THE NUMER OF '1' AKA ENIMIES INTHE MAP
     # ALLOWS FOR CUSTOM 10X10 MAPS WITH MORE THEN 17 ENEMIES
     for($i = 0; $i -lt 10; $i++)
     {
@@ -323,7 +323,7 @@ function main {
                 # TELLS YOU HOW MANY MISSLES YOU HAVE REMAINING
                 Write-Output "You have $misslesRemaining missiles remaining." 
             }
-            # ALL SHIPS HAVE BEEN SUNK SET $I TO 29 TO END THE FORLOOP
+            # ALL SHIPS HAVE BEEN SUNK SET I TO 29 TO END THE FORLOOP
             elseif($hits -eq $enemyCount)
             {
                 $i = 29
