@@ -105,10 +105,10 @@ function main {
                 elseif($attack.Contains("A"))
                 {
                     Write-Output "a"
-                    $attackMap += [int](1)
-                    $attackMap += [int]($attack -replace "A","")
-                    $attackMap
-                    if($attackMap[1] -gt 10)
+                    $attackMap += [int](0)
+                    $attack = [int]($attack -replace "A","") - 1
+                    $attackMap += $attack
+                    if($attackMap[1] -gt 9)
                     {
                         $error = $true
                         Write-Output "opps to big"
@@ -117,10 +117,10 @@ function main {
                 elseif($attack.Contains("B"))
                 {
                     Write-Output "b"
-                    $attackMap += [int](2)
-                    $attackMap += [int]($attack -replace "B","")
-                    $attackMap
-                    if($attackMap[1] -gt 10)
+                    $attackMap += [int](1)
+                    $attack = [int]($attack -replace "B","") - 1
+                    $attackMap += $attack
+                    if($attackMap[1] -gt 9)
                     {
                         $error = $true
                         Write-Output "opps to big"
@@ -129,10 +129,10 @@ function main {
                 elseif($attack.Contains("C"))
                 {
                     Write-Output "c"
-                    $attackMap += [int](3)
-                    $attackMap += [int]($attack -replace "C","")
-                    $attackMap
-                    if($attackMap[1] -gt 10)
+                    $attackMap += [int](2)
+                    $attack = [int]($attack -replace "C","") - 1
+                    $attackMap += $attack
+                    if($attackMap[1] -gt 9)
                     {
                         $error = $true
                         Write-Output "opps to big"
@@ -141,10 +141,10 @@ function main {
                 elseif($attack.Contains("D"))
                 {
                     Write-Output "d"
-                    $attackMap += [int](4)
-                    $attackMap += [int]($attack -replace "D","")
-                    $attackMap
-                    if($attackMap[1] -gt 10)
+                    $attackMap += [int](3)
+                    $attack = [int]($attack -replace "D","") - 1
+                    $attackMap += $attack
+                    if($attackMap[1] -gt 9)
                     {
                         $error = $true
                         Write-Output "opps to big"
@@ -153,10 +153,10 @@ function main {
                 elseif($attack.Contains("E"))
                 {
                     Write-Output "e"
-                    $attackMap += [int](5)
-                    $attackMap += [int]($attack -replace "E","")
-                    $attackMap
-                    if($attackMap[1] -gt 10)
+                    $attackMap += [int](4)
+                    $attack = [int]($attack -replace "E","") - 1
+                    $attackMap += $attack
+                    if($attackMap[1] -gt 9)
                     {
                         $error = $true
                         Write-Output "opps to big"
@@ -165,10 +165,10 @@ function main {
                 elseif($attack.Contains("F"))
                 {
                     Write-Output "f"
-                    $attackMap += [int](6)
-                    $attackMap += [int]($attack -replace "F","")
-                    $attackMap
-                    if($attackMap[1] -gt 10)
+                    $attackMap += [int](5)
+                    $attack = [int]($attack -replace "F","") - 1
+                    $attackMap += $attack
+                    if($attackMap[1] -gt 9)
                     {
                         $error = $true
                         Write-Output "opps to big"
@@ -177,10 +177,10 @@ function main {
                 elseif($attack.Contains("G"))
                 {
                     Write-Output "g"
-                    $attackMap += [int](7)
-                    $attackMap += [int]($attack -replace "G","")
-                    $attackMap
-                    if($attackMap[1] -gt 10)
+                    $attackMap += [int](6)
+                    $attack = [int]($attack -replace "G","") - 1
+                    $attackMap += $attack
+                    if($attackMap[1] -gt 9)
                     {
                         $error = $true
                         Write-Output "opps to big"
@@ -189,10 +189,10 @@ function main {
                 elseif($attack.Contains("H"))
                 {
                     Write-Output "h"
-                    $attackMap += [int](8)
-                    $attackMap += [int]($attack -replace "H","")
-                    $attackMap
-                    if($attackMap[1] -gt 10)
+                    $attackMap += [int](7)
+                    $attack = [int]($attack -replace "H","") - 1
+                    $attackMap += $attack
+                    if($attackMap[1] -gt 9)
                     {
                         $error = $true
                         Write-Output "opps to big"
@@ -201,10 +201,10 @@ function main {
                 elseif($attack.Contains("I"))
                 {
                     Write-Output "i"
-                    $attackMap += [int](9)
-                    $attackMap += [int]($attack -replace "I","")
-                    $attackMap
-                    if($attackMap[1] -gt 10)
+                    $attackMap += [int](8)
+                    $attack = [int]($attack -replace "I","") - 1
+                    $attackMap += $attack
+                    if($attackMap[1] -gt 9)
                     {
                         $error = $true
                         Write-Output "opps to big"
@@ -213,10 +213,10 @@ function main {
                 elseif($attack.Contains("J"))
                 {
                     Write-Output "j"
-                    $attackMap += [int](10)
-                    $attackMap += [int]($attack -replace "J","")
-                    $attackMap
-                    if($attackMap[1] -gt 10)
+                    $attackMap += [int](9)
+                    $attack = [int]($attack -replace "J","") - 1
+                    $attackMap += $attack
+                    if($attackMap[1] -gt 9)
                     {
                         $error = $true
                         Write-Output "opps to big"
@@ -232,6 +232,19 @@ function main {
             While($error -eq $true)
 
             $misslesRemaining = $misslesRemaining - 1
+            
+            if($map[$attackMap[1]][$attackMap[0]] -eq 1)
+            {
+                Write-Output "Hit!!!!!"
+                $map[$attackMap[1]][$attackMap[0]] = "X"
+            }
+            elseif($map[$attackMap[1]][$attackMap[0]] -eq 0)
+            {
+                Write-Output "Miss"
+            }
+
+            foreach ($map)
+            
         }
         
     }
