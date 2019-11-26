@@ -129,7 +129,7 @@ function main {
                         $error = $true
                     }
                 }
-                While($error -eq $true -or $hits -ne $enemyCount)
+                While($error -eq $true -and $hits -ne $enemyCount)
                 
                 # IF INPUT IS NT BETWEEN 2 AND 3 CHARACTERS IN LENGTH THEN SET ERROR TO TRUE
                 if($attack.length -lt 2 -or $attack.length -gt 3)
@@ -298,7 +298,7 @@ function main {
 
                 
             }
-            While($error -eq $true -or $hits -ne $enemyCount)
+            While($error -eq $true -and $hits -ne $enemyCount)
 
             # IF HIT OUTPUT HIT!!!!!! AND X MARKS THE SPOT ON MAPVIEW
             if($map[$attackMap[1]][$attackMap[0]] -eq 1)
@@ -327,7 +327,7 @@ function main {
         }
         
     }
-    While($misslesRemaining -ne 0  -or $hits -ne $enemyCount)
+    While($misslesRemaining -ne 0 -and $hits -ne $enemyCount)
     
     # FINAL OUTPUT WIN
     if($hits -eq $enemyCount)
