@@ -40,7 +40,7 @@ function main {
 
     # INITILIZING VARIABLES
     $inputMapFile = "map.txt"
-    $misslesRemaining = [int](30)
+    $missilesRemaining = [int](30)
     $error = $false
     $letterRegEx = "^[A-J]+$"
     $hits = 0
@@ -83,7 +83,7 @@ function main {
     # GAME ON
     Write-Output "Let's Play Battleship!"
     # TELLS YOU HOW MANY MISSLES YOU HAVE
-    Write-Output "You have $misslesRemaining missiles to fire to sink All five ships.`n" 
+    Write-Output "You have $missilesRemaining missiles to fire to sink All five ships.`n" 
     do
     {
         # FORLOOP THAT ALLOWS 30 CYCLES FOR THE 30 SHOTS
@@ -303,7 +303,7 @@ function main {
             # IF HIT OUTPUT HIT!!!!!! AND X MARKS THE SPOT ON MAPVIEW
             if($map[$attackMap[1]][$attackMap[0]] -eq 1)
             {
-                Write-Output "Hit!!!!!"
+                Write-Output "HIT!!!!!"
                 $mapView[$attackMap[1]][$attackMap[0]] = "X"
                 $hits = $hits + 1
             }
@@ -319,9 +319,9 @@ function main {
             if($hits -ne $enemyCount)
             {
                 # REDUCING MISSISLES BY 1
-                $misslesRemaining = $misslesRemaining - 1
+                $missilesRemaining = $missilesRemaining - 1
                 # TELLS YOU HOW MANY MISSLES YOU HAVE REMAINING
-                Write-Output "You have $misslesRemaining missiles remaining." 
+                Write-Output "You have $missilesRemaining missiles remaining." 
             }
             # ALL SHIPS HAVE BEEN SUNK SET I TO 29 TO END THE FORLOOP
             elseif($hits -eq $enemyCount)
@@ -332,7 +332,7 @@ function main {
         }
         
     }
-    While($misslesRemaining -ne 0 -and $hits -ne $enemyCount)
+    While($missilesRemaining -ne 0 -and $hits -ne $enemyCount)
     
     # FINAL OUTPUT WIN
     if($hits -eq $enemyCount)
