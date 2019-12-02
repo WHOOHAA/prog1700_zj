@@ -10,7 +10,6 @@
 # DO NOT EDIT: The main function to house our program code 
 function main {
    
-    $searchSucces = $false
 
     do
     {
