@@ -30,7 +30,8 @@ function main {
 
 
             $allData = Invoke-RestMethod -Uri $searchGovCan
-
+            #$allData = Invoke-RestMethod -Uri "https://open.canada.ca/data/en/api/3/action/package_search?q=parks&rows=100&start=1000"
+            #.organization.title
 
             If($allData.result.results -eq $null)
             {
@@ -74,12 +75,10 @@ function main {
         Write-Output ("en: {0}" -f $data.title_translated.en)
     }
 
+    # $allData.result.results.title_translated.en | Out-GridView -Title $search
+
         # Converts $allData to $dataHTML, adds Css formatting, filters out all but OBJECT ID, PARK ID, PARK NAME information, adds Pre and Post message
-        $dataHTML = $allData.result.results.title_translated | ConvertTo-Html `
-        -CssUri ".\css_styles.css" `
-        -Property en `
-        -PRE ("<h1> Generated HTML List Search of {0} </h1>" -f $search )`
-        -POST "THANKS FOR SEARCHING"
+        $dataHTML = $allData.result.results | ConvertTo-Html -CssUri ".\css_styles.css" -Property title_translated.en, .organization.title -PRE ("<h1> Generated HTML List Search of {0} </h1>" -f $search ) -POST "THANKS FOR SEARCHING"
         
         # Saves file as Park-HTMP.html with utf8 encoding
         $dataHTML | Out-File -FilePath OpenCanadaSearch.html -Encoding utf8
