@@ -5,6 +5,23 @@
 ###################################
 
 
+# CLASS NAME
+class SearchData
+{
+    #INITIALIZATION, NAMES ARE NOT CONVENTIONAL DUE TO SHOWING UP IN HTML TABLE OUTPUT
+    [String] $Title
+    [String] $Organization
+    [String] $ID
+
+    #CONSTRUCTOR PASS IN VARIABLES AND STORES IN PROPER PROPERTIES
+    SearchData ([String]$InTitleTranslated, [String]$InOrganization, [String]$InID)
+    {
+        $this.Title = $this.Title + $InTitleTranslated
+        $this.Organization = $this.Title + $InOrganization
+        $this.ID = $this.Title + $InID
+    }
+
+}
 
 
 # DO NOT EDIT: The main function to house our program code 
@@ -13,7 +30,8 @@ function main {
     # Initilaize variables
     $rows = 1000
     $start = 0
-    $dataToConvert = @()
+    [Array]$searchData
+    # $dataToConvert = @()
 
     do
     {   
@@ -81,18 +99,22 @@ function main {
         # } while ($pagedSearchGovCan.results.length -eq 10) # ten is default limit, so if 10 there might be more pages
     
     # Go over each row onw at a time for each park
-    foreach($data in $allData.result.results)
-    {
-        Write-Output ("-" * 40)
-        Write-Output ("en: {0} `nOrganization: {1}" -f $data.title_translated.en, $data.organization.title)
-        $dataToConvert += $data.title_translated
-        $dataToConvert += $data.organization
-    }
+    # foreach($data in $allData.result.results)
+    # {
 
-    # $allData.result.results.title_translated.en | Out-GridView -Title $search -CssUri ".\css_styles.css"
+        $searchData = [SearchData]::new($data.title_translated.en, $data.org_title_at_publication.en, $data.id)
+        # Write-Output ("-" * 40)
+        # Write-Output ("en: {0} `nOrganization: {1}" -f $data.title_translated.en, $data.organization.title)
+        # $dataToConvert += $data.title_translated
+        # $dataToConvert += $data.organization
+    # }
+
+    $searchData = [SearchData]::new($allData.result.results.title_translated.en, $allData.result.results.org_title_at_publication.en, $allData.result.results.id)
+
+    # $allData.result.results.title_translated.en | Out-GridView -Title $search 
 
         # Converts $allData to $dataHTML, adds Css formatting, filters out all but  information, adds Pre and Post message, result.results.organization.title
-        $dataHTML = $dataToConvert | ConvertTo-Html -Property en, title -PRE ("<h1> Generated HTML List Search of {0} </h1>" -f $search ) -POST "THANKS FOR SEARCHING"
+        $dataHTML = $searchData | ConvertTo-Html -CssUri ".\css_styles.css" -Property Title,Organization,ID -PRE ("<h1> Generated HTML List Search of {0} </h1>" -f $search ) -POST "THANKS FOR SEARCHING"
         #$dataHTML +=  | ConvertTo-Html  -Property  
 
         # Saves file as Park-HTMP.html with utf8 encoding
