@@ -10,28 +10,34 @@
 # DO NOT EDIT: The main function to house our program code 
 function main {
    
+    # Initilaize variables
+    $rows = 1000
+    $start = 0
+    $dataToConvert = @()
 
     do
-    {
-        
-        # Read To Search
-        $search = Read-Host -Prompt "Please enter what you would like to search"
-
-        $searchGovCan = ("http://open.canada.ca/data/en/api/3/action/package_search?q={0}" -f $search)
-
-
-        # Allows secure cennection
-        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-
-
+    {   
         # accesss the API and retrieve all data
         try
         {
+            
+            # Allows secure cennection
+            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+            # Read To Search
+            $search = Read-Host -Prompt "Please enter what you would like to search"
+
+            # Prevents the delay of a dearch if contains only a blank (enter) or a space
+            if($search -eq $null -or $search -eq " ")
+            {
+                throw "Blank is not accepted as an input."
+            }
+
+            $searchGovCan = ("https://open.canada.ca/data/en/api/3/action/package_search?q={0}&rows={1}&start={2}" -f $search, $rows, $start)
 
 
             $allData = Invoke-RestMethod -Uri $searchGovCan
-            #$allData = Invoke-RestMethod -Uri "https://open.canada.ca/data/en/api/3/action/package_search?q=parks&rows=100&start=1000"
-            #.organization.title
+
 
             If($allData.result.results -eq $null)
             {
@@ -54,6 +60,12 @@ function main {
 
 
 
+
+
+            
+            #$allData = Invoke-RestMethod -Uri "https://open.canada.ca/data/en/api/3/action/package_search?q=parks&rows=100&start=1000"
+            #.organization.title
+
         # # get JSON Data from a public API that limits us to one page of 10 results at a time
         # do {
 
@@ -72,18 +84,17 @@ function main {
     foreach($data in $allData.result.results)
     {
         Write-Output ("-" * 40)
-        Write-Output ("en: {0}" -f $data.title_translated.en)
+        Write-Output ("en: {0} `nOrganization: {1}" -f $data.title_translated.en, $data.organization.title)
+        $dataToConvert += $data.title_translated
+        $dataToConvert += $data.organization
     }
 
-    # $allData.result.results.title_translated.en | Out-GridView -Title $search
+    # $allData.result.results.title_translated.en | Out-GridView -Title $search -CssUri ".\css_styles.css"
 
-        # Converts $allData to $dataHTML, adds Css formatting, filters out all but OBJECT ID, PARK ID, PARK NAME information, adds Pre and Post message
-        $dataHTML = $allData.result.results | ConvertTo-Html `
-        -CssUri ".\css_styles.css" `
-        -Property 'title_translated.en', 'organization.title' `
-        -PRE ("<h1> Generated HTML List Search of {0} </h1>" -f $search ) `
-        -POST "THANKS FOR SEARCHING"
-        
+        # Converts $allData to $dataHTML, adds Css formatting, filters out all but  information, adds Pre and Post message, result.results.organization.title
+        $dataHTML = $dataToConvert | ConvertTo-Html -Property en, title -PRE ("<h1> Generated HTML List Search of {0} </h1>" -f $search ) -POST "THANKS FOR SEARCHING"
+        #$dataHTML +=  | ConvertTo-Html  -Property  
+
         # Saves file as Park-HTMP.html with utf8 encoding
         $dataHTML | Out-File -FilePath OpenCanadaSearch.html -Encoding utf8
     
