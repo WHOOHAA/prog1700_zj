@@ -4,6 +4,11 @@
 #    Description: Final Project   #
 ###################################
 
+# function Count ($InCount)
+# {
+#     if ()
+    
+# }
 
 # CLASS NAME
 class SearchData
@@ -16,9 +21,9 @@ class SearchData
     #CONSTRUCTOR PASS IN VARIABLES AND STORES IN PROPER PROPERTIES
     SearchData ([String]$InTitleTranslated, [String]$InOrganization, [String]$InID)
     {
-        $this.Title = $this.Title + $InTitleTranslated
-        $this.Organization = $this.Title + $InOrganization
-        $this.ID = $this.Title + $InID
+        $this.Title = $InTitleTranslated
+        $this.Organization = $InOrganization
+        $this.ID =$InID
     }
 
 }
@@ -30,8 +35,8 @@ function main {
     # Initilaize variables
     $rows = 1000
     $start = 0
-    [Array]$searchData
-    # $dataToConvert = @()
+    $searchData = @()
+
 
     do
     {   
@@ -51,11 +56,9 @@ function main {
                 throw "Blank is not accepted as an input."
             }
 
-            $searchGovCan = ("https://open.canada.ca/data/en/api/3/action/package_search?q={0}&rows={1}&start={2}" -f $search, $rows, $start)
-
+            $searchGovCan = ("https://open.canada.ca/data/en/api/3/action/package_search?q={0}" -f $search)
 
             $allData = Invoke-RestMethod -Uri $searchGovCan
-
 
             If($allData.result.results -eq $null)
             {
@@ -75,51 +78,49 @@ function main {
         }
     }
     While ($searchSuccess -eq $false)
-
-
-
-
-
-            
-            #$allData = Invoke-RestMethod -Uri "https://open.canada.ca/data/en/api/3/action/package_search?q=parks&rows=100&start=1000"
-            #.organization.title
-
-        # # get JSON Data from a public API that limits us to one page of 10 results at a time
-        # do {
-
-        #     $pagedSearchGovCan = Invoke-RestMethod -URI ("http://open.canada.ca/data/en/api/3/action/package_search?q{0}/page={1}" -f $search, $pagesRetreived) `
-        #                                       #-Headers @{"accept"="application/json"}
     
-        #     if($pagedSearchGovCan.results.length -ne 0)
-        #     {
-        #         $retrievedSearchGovCan += $pagedSearchGovCan.results
-        #         $pagesRetreived++
-        #     }
-            
-        # } while ($pagedSearchGovCan.results.length -eq 10) # ten is default limit, so if 10 there might be more pages
+    do
+    {
+
+
+        $searchGovCan = ("https://open.canada.ca/data/en/api/3/action/package_search?q={0}&rows={1}&start={2}" -f $search, $rows, $start)
+        $allData = Invoke-RestMethod -Uri $searchGovCan
+
+        # Go over each row onw at a time for each park
+        foreach($data in $allData.result.results)
+        {
+
+            $searchData += [SearchData]::new($data.title_translated.en, $data.org_title_at_publication.en, $data.id)
     
-    # Go over each row onw at a time for each park
-    # foreach($data in $allData.result.results)
-    # {
+            Write-Output ("-" * 40)
+            Write-Output ("Title: {0} `nOrganization: {1} `nID: {2}" -f $data.title_translated.en, $data.organization.title, $data.id)
 
-        $searchData = [SearchData]::new($data.title_translated.en, $data.org_title_at_publication.en, $data.id)
-        # Write-Output ("-" * 40)
-        # Write-Output ("en: {0} `nOrganization: {1}" -f $data.title_translated.en, $data.organization.title)
-        # $dataToConvert += $data.title_translated
-        # $dataToConvert += $data.organization
-    # }
+            $number = $number + 1
+            Write-Output $number
 
-    $searchData = [SearchData]::new($allData.result.results.title_translated.en, $allData.result.results.org_title_at_publication.en, $allData.result.results.id)
+        }
 
-    # $allData.result.results.title_translated.en | Out-GridView -Title $search 
+        if($allData.result.results.length -lt 1000)
+        {
+            break;       
+        }
 
-        # Converts $allData to $dataHTML, adds Css formatting, filters out all but  information, adds Pre and Post message, result.results.organization.title
-        $dataHTML = $searchData | ConvertTo-Html -CssUri ".\css_styles.css" -Property Title,Organization,ID -PRE ("<h1> Generated HTML List Search of {0} </h1>" -f $search ) -POST "THANKS FOR SEARCHING"
-        #$dataHTML +=  | ConvertTo-Html  -Property  
+        # $rows = $rows + 1000
+        $start = $start + 1000
 
-        # Saves file as Park-HTMP.html with utf8 encoding
-        $dataHTML | Out-File -FilePath OpenCanadaSearch.html -Encoding utf8
-    
+    }
+    while ($allData.result.results.length -ne 0)
+
+    $preHTML = ("<h1> Generated HTML List Search of {0} </h1>" -f $search )
+
+    $preHTML += "<img src='https://www.publicdomainpictures.net/pictures/50000/nahled/canadian-flag.jpg' alt='Grapefruit slice atop a pile of other slices'>"
+
+    # Converts $allData to $dataHTML, adds Css formatting, filters out all but  information, adds Pre and Post message, result.results.organization.title
+    $dataHTML = $searchData | ConvertTo-Html -CssUri ".\css_styles.css" -Property Title,Organization,ID -PRE $preHTML -POST "THANKS FOR SEARCHING"
+
+    # Saves file as Park-HTMP.html with utf8 encoding
+    $dataHTML | Out-File -FilePath OpenCanadaSearch.html -Encoding utf8
+
     # Progream finished message
     Write-Output "Program Done"
     
