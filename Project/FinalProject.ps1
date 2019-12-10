@@ -4,34 +4,33 @@
 #    Description: Final Project   #
 ###################################
 
-
-
-
-# DO NOT EDIT: The main function to house our program code 
-function main {
-   
+function Retreive-FilteredData
+{
+    $rows = 1000
+    $start = 0
+    $OutSearchData = @()
 
     do
-    {
-        
-        # Read To Search
-        $search = Read-Host -Prompt "Please enter what you would like to search"
-
-        $searchGovCan = ("http://open.canada.ca/data/en/api/3/action/package_search?q={0}" -f $search)
-
-
-        # Allows secure cennection
-        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-
-
+    {   
         # accesss the API and retrieve all data
         try
         {
+            
+            # Allows secure cennection
+            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
+            # Read To Search
+            $search = Read-Host -Prompt "`nPlease enter what you would like to search"
+
+            # Prevents the delay of a dearch if contains only a blank (enter) or a space
+            if($search -eq $null -or $search -eq " ")
+            {
+                throw "Blank is not accepted as an input."
+            }
+
+            $searchGovCan = ("https://open.canada.ca/data/en/api/3/action/package_search?q={0}" -f $search)
 
             $allData = Invoke-RestMethod -Uri $searchGovCan
-            #$allData = Invoke-RestMethod -Uri "https://open.canada.ca/data/en/api/3/action/package_search?q=parks&rows=100&start=1000"
-            #.organization.title
 
             If($allData.result.results -eq $null)
             {
@@ -52,45 +51,118 @@ function main {
     }
     While ($searchSuccess -eq $false)
 
-
-
-        # # get JSON Data from a public API that limits us to one page of 10 results at a time
-        # do {
-
-        #     $pagedSearchGovCan = Invoke-RestMethod -URI ("http://open.canada.ca/data/en/api/3/action/package_search?q{0}/page={1}" -f $search, $pagesRetreived) `
-        #                                       #-Headers @{"accept"="application/json"}
-    
-        #     if($pagedSearchGovCan.results.length -ne 0)
-        #     {
-        #         $retrievedSearchGovCan += $pagedSearchGovCan.results
-        #         $pagesRetreived++
-        #     }
-            
-        # } while ($pagedSearchGovCan.results.length -eq 10) # ten is default limit, so if 10 there might be more pages
-    
-    # Go over each row onw at a time for each park
-    foreach($data in $allData.result.results)
+    do
     {
-        Write-Output ("-" * 40)
-        Write-Output ("en: {0}" -f $data.title_translated.en)
+
+
+        $searchGovCan = ("https://open.canada.ca/data/en/api/3/action/package_search?q={0}&rows={1}&start={2}" -f $search, $rows, $start)
+        $allData = Invoke-RestMethod -Uri $searchGovCan
+
+        # Go over each row onw at a time for each park
+        foreach($data in $allData.result.results)
+        {
+
+            $OutSearchData += [SearchData]::new($data.title_translated.en, $data.org_title_at_publication.en, $data.id)
+        }
+
+        # 
+        if($allData.result.results.length -lt 1000)
+        {
+            break;       
+        }
+
+        # adds the 
+        $start = $start + 1000
+
     }
+    while ($allData.result.results.length -ne 0)
 
-    # $allData.result.results.title_translated.en | Out-GridView -Title $search
+    Return $OutSearchData
+}
 
-        # Converts $allData to $dataHTML, adds Css formatting, filters out all but OBJECT ID, PARK ID, PARK NAME information, adds Pre and Post message
-        $dataHTML = $allData.result.results | ConvertTo-Html `
-        -CssUri ".\css_styles.css" `
-        -Property 'title_translated.en', 'organization.title' `
-        -PRE ("<h1> Generated HTML List Search of {0} </h1>" -f $search ) `
-        -POST "THANKS FOR SEARCHING"
-        
+
+function Display-DataStatistics($InData)
+{
+    $OutData = $InData.length
+
+    return $OutData
+}
+
+function Create-DataReport ($InSearchData)
+{
+    
+    $preHTML = "<h1> Generated HTML Search List"  #( : {0} </h1>" -f $search.ToUpper() )
+
+    $preHTML += "<img src='https://dynamicmedia.zuza.com/zz/m/original_/5/d/5d475c5f-6dad-40e5-b6af-23b3343a1998/Canada_Flag_1_Super_Portrait.jpg' alt='Picture of Canada's Flag' width='200' height='100'>"
+
+    try
+    {
+        # Converts $allData to $dataHTML, adds Css formatting, filters out all but  information, adds Pre and Post message, result.results.organization.title
+        $dataHTML = $searchData | ConvertTo-Html -CssUri ".\css_styles.css" -Property Title,Organization,ID -PRE $preHTML -POST "THANKS FOR SEARCHING"
+
         # Saves file as Park-HTMP.html with utf8 encoding
         $dataHTML | Out-File -FilePath OpenCanadaSearch.html -Encoding utf8
-    
+    }
+    catch
+    {
+        Return "ERROR: HTML Report NOT Complete Try Again."
+        break
+    }
+    Return "HTML Report 'OpenCanadaSearch.html' Complete."
+}
+
+
+# CLASS NAME
+class SearchData
+{
+    #INITIALIZATION, NAMES ARE NOT CONVENTIONAL DUE TO SHOWING UP IN HTML TABLE OUTPUT
+    [String] $Title
+    [String] $Organization
+    [String] $ID
+
+    #CONSTRUCTOR PASS IN VARIABLES AND STORES IN PROPER PROPERTIES
+    SearchData ([String]$InTitleTranslated, [String]$InOrganization, [String]$InID)
+    {
+        $this.Title = $InTitleTranslated
+        $this.Organization = $InOrganization
+        $this.ID =$InID
+    }
+
+}
+
+
+# DO NOT EDIT: The main function to house our program code 
+function main {
+   
+    # Initilaize variables
+    $searchData = @()
+
+    Write-Output ("#" * 41)
+    Write-Output "#                                       #"
+    Write-Output "#  Welcome to the Government of Canada  #"
+    Write-Output "#   Open API Search Powershell Client   #"
+    Write-Output "#          By: Zachary Johnson          #"
+    Write-Output "#                                       #"
+    Write-Output ("#" * 41)
+
+    $searchData = Retreive-FilteredData
+
+    $dataStatistics = Display-DataStatistics -InData $searchData
+
+    $outcomeHTML = Create-DataReport -InSearchData $searchData
+
+    # Total number of search results outout
+    Write-Output ("-" * 50)
+    Write-Output "Your total number of search results found is: $dataStatistics."
+
+    #
+    Write-Output ("-" * 50)
+    Write-Output $outcomeHTML
+
     # Progream finished message
+    Write-Output ("-" * 50)
     Write-Output "Program Done"
     
-	
 }
 
 # DO NOT EDIT: Trigger our main function to launch the program

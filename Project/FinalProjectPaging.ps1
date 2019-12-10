@@ -92,20 +92,21 @@ function main {
 
             $searchData += [SearchData]::new($data.title_translated.en, $data.org_title_at_publication.en, $data.id)
     
-            Write-Output ("-" * 40)
-            Write-Output ("Title: {0} `nOrganization: {1} `nID: {2}" -f $data.title_translated.en, $data.organization.title, $data.id)
+            # Write-Output ("-" * 40)
+            # Write-Output ("Title: {0} `nOrganization: {1} `nID: {2}" -f $data.title_translated.en, $data.organization.title, $data.id)
 
-            $number = $number + 1
-            Write-Output $number
+            # $number = $number + 1
+            # Write-Output $number
 
         }
 
+        # 
         if($allData.result.results.length -lt 1000)
         {
             break;       
         }
 
-        # $rows = $rows + 1000
+        # adds the 
         $start = $start + 1000
 
     }
@@ -120,6 +121,11 @@ function main {
 
     # Saves file as Park-HTMP.html with utf8 encoding
     $dataHTML | Out-File -FilePath OpenCanadaSearch.html -Encoding utf8
+
+
+    
+    # Total number of search results outout
+    Write-Output "Your total number of search results found it $count"
 
     # Progream finished message
     Write-Output "Program Done"
