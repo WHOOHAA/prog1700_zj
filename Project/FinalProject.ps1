@@ -19,7 +19,7 @@ function Retreive-FilteredData
     # Runs till $searchSuccess equals true AKA untill it runs successfully
     do
     {   
-        # Accesss the API and retrieves all data within the search
+        # Try to accesss the API and retrieves all data within the search and catches errors
         try
         {
             
@@ -114,6 +114,7 @@ function Create-DataReport ($InSearchData)
     # Part 2 of pre message is a photo from google search of Canada Flag
     $preHTML += "<img src='https://dynamicmedia.zuza.com/zz/m/original_/5/d/5d475c5f-6dad-40e5-b6af-23b3343a1998/Canada_Flag_1_Super_Portrait.jpg' alt='Picture of Canada's Flag' width='100' height='50'>"
 
+    # Try to conver to html and build file OpenCanadaSearch.html Catches if any error
     try
     {
         # Converts $searchData to $dataHTML, adds Css formatting, filters out all but  Title, Organization, ID and adds Pre and Post message, result.results.organization.title
